@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="authentification-service" />
+        <module name="personnes-service-application" />
+        <module name="personnes-service-domain" />
+        <module name="personnes-service-infrastructure" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="authentification-service" target="1.8" />
+      <module name="personnes-service" target="1.5" />
+      <module name="personnes-service-application" target="1.8" />
+      <module name="personnes-service-domain" target="1.8" />
+      <module name="personnes-service-infrastructure" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

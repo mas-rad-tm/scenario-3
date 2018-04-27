@@ -1,0 +1,13 @@
+###########################
+# Hibernate
+###########################
+hibernate:
+  driver-class-name: com.ibm.db2.jcc.DB2Driver
+  url: jdbc:db2://localhost:50000/db2inst1
+  username: db2inst1
+  password: db2inst1-pwd
+  dialect: org.hibernate.dialect.DB2Dialect
+  hbm2ddl:
+    auto: create
+  show:
+    sql: true

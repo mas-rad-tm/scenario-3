@@ -1,0 +1,56 @@
+#####################################################################
+# Configuration Spring de base
+#####################################################################
+# app name
+spring:
+  application:
+    name:                            authentification-service
+#jackson null default desactivate
+  jackson:
+    default-property-inclusion:      NON_NULL
+#profiles spring
+  profiles:
+    active:                          maison
+
+#####################################################################
+# Security
+#####################################################################
+  ldap:
+    embedded:
+      ldif: classpath:ldap-server.ldif
+      base-dn: dc=springframework,dc=org
+      port: 8389
+
+# mode jar, port et context
+server:
+  port:                              ${PORT:8010}
+  servlet.context-path:                       /authentification-service
+
+#####################################################################
+# Configuration Spring actuator
+#####################################################################
+management:
+  server.servlet.context-path:                         /actuator
+
+# configuration des endpoints
+management:
+  endpoint:
+    hypermedia:
+      enabled:                            true
+    actuator:
+      enabled:                            true
+    beans:
+      enabled:                            true
+    env:
+      enabled:                            true
+    metrics:
+      enabled:                            true
+    health:
+      enabled:                            true
+    mappings:
+      enabled:                            true
+    docs:
+      enabled:                            true
+    logfile:
+      enabled:                            true
+

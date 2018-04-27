@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field">
+
+    <class name="ch.globaz.tmmas.personnesservice.domain.model.Adresse" table="adresse" schema="personnes" mutable="true">
+
+        <id name="id" column="id">
+            <generator class="org.hibernate.id.IdentityGenerator"/>
+        </id>
+
+
+        <property name="rue" column="rue" not-null="true"/>
+
+        <property name="numero" column="numero" not-null="true"/>
+
+        <property name="complement" column="complement" not-null="false"/>
+
+        <property name="dateDebutValidite" column="dateDebutValidite" not-null="true"/>
+
+        <property name="dateFinValidite" column="dateFinvalidite" not-null="false"/>
+
+        <property name="isActive" column="isActive" not-null="true"/>
+
+        <many-to-one name="localite" column="localite_id" class="ch.globaz.tmmas.personnesservice.domain.model.Localite"
+                     cascade="all" lazy="false"/>
+        
+        <many-to-one name="personneMorale" class="ch.globaz.tmmas.personnesservice.domain.model.PersonneMorale">
+            <column name="personne_id" not-null="true" />
+        </many-to-one>
+
+
+
+
+    </class>
+
+</hibernate-mapping>

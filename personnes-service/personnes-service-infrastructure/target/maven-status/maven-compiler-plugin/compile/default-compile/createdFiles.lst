@@ -1,0 +1,5 @@
+ch/globaz/tmmas/personnesservice/infrastructure/configuration/HibernateConfiguration.class
+ch/globaz/tmmas/personnesservice/infrastructure/repository/PersonnesHibernateRepository.class
+ch/globaz/tmmas/personnesservice/infrastructure/repository/AdressesHibernateRepository.class
+ch/globaz/tmmas/personnesservice/infrastructure/repository/HibernateRepository.class
+ch/globaz/tmmas/personnesservice/infrastructure/repository/LocaliteHibernateRepository.class

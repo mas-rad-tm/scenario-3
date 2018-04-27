@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ch.globaz.tmmas</groupId>
+    <artifactId>personnes-service</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+
+    <modules>
+        <module>personnes-service-application</module>
+        <module>personnes-service-domain</module>
+        <module>personnes-service-infrastructure</module>
+    </modules>
+
+    <!-- ****** Propriétés ****** -->
+    <properties>
+
+        <!-- dépendances -->
+        <spring-boot.version>2.0.1.RELEASE</spring-boot.version>
+        <spring.version>5.0.5.RELEASE</spring.version>
+        <logback.version>1.2.3</logback.version>
+        <logback.encoder.version>4.11</logback.encoder.version>
+        <hibernate.version>5.2.12.Final</hibernate.version>
+        <db2.driver.version>10.1</db2.driver.version>
+        <tomcat.jdbc.version>9.0.2</tomcat.jdbc.version>
+        <junit.version>4.12</junit.version>
+        <assertJ.version>3.9.0</assertJ.version>
+        <swagger.version>2.8.0</swagger.version>
+        <lombok.version>1.16.20</lombok.version>
+        <h2.driver.version>1.4.196</h2.driver.version>
+        <faker.version>0.14</faker.version>
+        <hibernate-validator.version>5.3.6.Final</hibernate-validator.version>
+        <jackson-databind.version>2.8.10</jackson-databind.version>
+        <guava.version>24.1-jre</guava.version>
+
+        <!-- dépendances de build et maven plugin -->
+        <maven-compiler.version>3.7.0</maven-compiler.version>
+        <maven-war.plugin.version>3.2.0</maven-war.plugin.version>
+        <maven-source.plugin>3.0.1</maven-source.plugin>
+        <maven.help.version>2.2</maven.help.version>
+        <jgitflow-plugin.version>1.0-m5.1</jgitflow-plugin.version>
+
+        <!-- propriétés diverses -->
+        <application.packaging.type>war</application.packaging.type>
+        <project.build.encoding>UTF-8</project.build.encoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>globaz</id>
+            <properties>
+                <db2.driver.version>4.12.55</db2.driver.version>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencyManagement>
+
+        <dependencies>
+
+            <!-- ********************************* -->
+            <!-- ****** Modules applicatifs ****** -->
+            <!-- ********************************* -->
+            <dependency>
+                <groupId>ch.globaz.tmmas</groupId>
+                <artifactId>personnes-service-application</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>ch.globaz.tmmas</groupId>
+                <artifactId>personnes-service-domain</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>ch.globaz.tmmas</groupId>
+                <artifactId>personnes-service-infrastructure</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
+
+            <!-- ********************************* -->
+            <!-- ************* Spring ************ -->
+            <!-- ********************************* -->
+            <!-- spring boot -->
+            <!--
+            repo: https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies
+            doc: doc: https://docs.spring.io/spring-boot/docs/1.5.9.RELEASE/reference/htmlsingle -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+
+
+            <!-- spring web mvc-->
+            <!--
+            repo: https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
+            doc: doc: https://docs.spring.io/spring-boot/docs/1.5.9.RELEASE/reference/htmlsingle-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+
+            <!-- spring web hateoas -->
+            <!--
+            repo: https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-hateoas
+            doc: doc: https://docs.spring.io/spring-boot/docs/1.5.9.RELEASE/reference/htmlsingle -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-hateoas</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <!-- ********************************* -->
+            <!-- ******** Persistence ************ -->
+            <!-- ********************************* -->
+
+            <!-- hibernate core module
+            repo: https://mvnrepository.com/artifact/org.hibernate/hibernate-core
+            doc: http://hibernate.org/orm/documentation/5.2/ -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+
+            <!-- pilote db2 type 4
+            repo: interne globaz
+            doc: http://www-01.ibm.com/support/docview.wss?uid=swg21363866 -->
+            <dependency>
+                <groupId>com.ibm.db2.jcc</groupId>
+                <artifactId>db2jcc4</artifactId>
+                <version>${db2.driver.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2.driver.version}</version>
+            </dependency>
+            <!-- sprnig orm module
+            repo: https://mvnrepository.com/artifact/org.springframework/spring-orm
+            doc: https://docs.spring.io/spring/docs/3.0.x/spring-framework-reference/html/orm.html -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-orm</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+
+            <!-- ****** Logging ****** -->
+            <!-- logback classic
+            repo: https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+            doc: https://logback.qos.ch/documentation.html -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+                <!-- test is mandatory here, will be overriden by final artifacts -->
+                <scope>test</scope>
+            </dependency>
+
+            <!-- logback core
+            repo: https://mvnrepository.com/artifact/ch.qos.logback/logback-core
+            doc: https://logback.qos.ch/documentation.html -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback.version}</version>
+                <!-- test is mandatory here, will be overriden by final artifacts -->
+                <scope>test</scope>
+            </dependency>
+
+            <!-- logback logstash encoder, formattage json des logs
+            repo: https://mvnrepository.com/artifact/net.logstash.logback/logstash-logback-encoder
+            doc: https://github.com/logstash/logstash-logback-encoder -->
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logback.encoder.version}</version>
+            </dependency>
+
+
+            <!-- ********************************* -->
+            <!-- ********    Tests    ************ -->
+            <!-- ********************************* -->
+
+            <!-- Junit
+            repo: https://mvnrepository.com/artifact/junit/junit
+            doc: http://junit.org/junit4/ -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- AssertJ
+            repo: https://mvnrepository.com/artifact/org.assertj/assertj-core
+            doc: http://joel-costigliola.github.io/assertj/assertj-core.html -->
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertJ.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+
+            <!-- ********************************* -->
+            <!-- ********    Divers   ************ -->
+            <!-- ********************************* -->
+
+            <!-- lombok
+            repo:https://mvnrepository.com/artifact/org.projectlombok/lombok
+            doc: https://projectlombok.org/ -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+
+            <!-- bean validator -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate-validator.version}</version>
+            </dependency>
+
+            <!-- serialisation dates avec jackson -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson-databind.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+
+
+        </dependencies>
+
+    </dependencyManagement>
+
+    <!-- ****** Dépendances transverses ****** -->
+    <dependencies>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+
+        <pluginManagement>
+
+            <plugins>
+
+                <!-- Maven compiler plugin
+                repo: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin
+                doc: https://maven.apache.org/plugins/maven-compiler-plugin/index.html -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler.version}</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                    </configuration>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+    </build>
+    <!-- repositories aalfresco pour db2 -->
+    <repositories>
+        <repository>
+            <id>alfresco</id>
+            <name>alfresco</name>
+            <url>https://artifacts.alfresco.com/nexus/content/repositories/public/</url>
+        </repository>
+
+    </repositories>
+
+</project>

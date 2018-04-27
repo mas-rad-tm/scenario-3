@@ -1,0 +1,5 @@
+/Users/seb/Developpement/TM-MAS/scenario-3/personnes-service/personnes-service-infrastructure/src/main/java/ch/globaz/tmmas/personnesservice/infrastructure/repository/LocaliteHibernateRepository.java
+/Users/seb/Developpement/TM-MAS/scenario-3/personnes-service/personnes-service-infrastructure/src/main/java/ch/globaz/tmmas/personnesservice/infrastructure/repository/AdressesHibernateRepository.java
+/Users/seb/Developpement/TM-MAS/scenario-3/personnes-service/personnes-service-infrastructure/src/main/java/ch/globaz/tmmas/personnesservice/infrastructure/repository/PersonnesHibernateRepository.java
+/Users/seb/Developpement/TM-MAS/scenario-3/personnes-service/personnes-service-infrastructure/src/main/java/ch/globaz/tmmas/personnesservice/infrastructure/repository/HibernateRepository.java
+/Users/seb/Developpement/TM-MAS/scenario-3/personnes-service/personnes-service-infrastructure/src/main/java/ch/globaz/tmmas/personnesservice/infrastructure/configuration/HibernateConfiguration.java

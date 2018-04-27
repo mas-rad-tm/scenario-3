@@ -1,0 +1,45 @@
+#####################################################################
+# Configuration Spring de base
+#####################################################################
+# app name
+spring:
+  application:
+    name:                            personnes-service
+#jackson null default desactivate
+  jackson:
+    default-property-inclusion:      NON_NULL
+#profiles spring
+  profiles:
+    active:                          db2,maison
+
+# mode jar, port et context
+server:
+  port:                              ${PORT:9010}
+  servlet.context-path:                       /personnes-service
+#####################################################################
+# Configuration Spring actuator
+#####################################################################
+management:
+  server.servlet.context-path:                         /actuator
+
+# configuration des endpoints
+management:
+  endpoint:
+    hypermedia:
+      enabled:                            true
+    actuator:
+      enabled:                            true
+    beans:
+      enabled:                            true
+    env:
+      enabled:                            true
+    metrics:
+      enabled:                            true
+    health:
+      enabled:                            true
+    mappings:
+      enabled:                            true
+    docs:
+      enabled:                            true
+    logfile:
+      enabled:                            true
