@@ -17,9 +17,14 @@ spring:
 #####################################################################
   ldap:
     embedded:
+      credential:
+        username: uid=admin
+        password: secret
       ldif: classpath:ldap-server.ldif
-      base-dn: dc=springframework,dc=org
+      base-dn: dc=globaz.tmmas,dc=ch
       port: 8389
+      validation:
+        enabled: false
 
 # mode jar, port et context
 server:

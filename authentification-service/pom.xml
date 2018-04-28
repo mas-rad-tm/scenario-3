@@ -13,6 +13,7 @@
         <!-- dependances -->
         <spring-boot.version>2.0.1.RELEASE</spring-boot.version>
         <spring.version>5.0.5.RELEASE</spring.version>
+        <lombok.version>1.16.20</lombok.version>
 
         <logback.version>1.2.3</logback.version>
         <logback.encoder.version>4.11</logback.encoder.version>
@@ -94,7 +95,20 @@
             <version>${spring-boot.version}</version>
         </dependency>
 
+        <!-- ********************************* -->
+        <!-- ********    Divers   ************ -->
+        <!-- ********************************* -->
 
+        <!-- lombok
+        repo:https://mvnrepository.com/artifact/org.projectlombok/lombok
+        doc: https://projectlombok.org/ -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--
        <dependency>
            <groupId>org.springframework.ldap</groupId>
            <artifactId>spring-ldap-core</artifactId>
@@ -123,6 +137,18 @@
           <version>5.0.4.RELEASE</version>
           <scope>test</scope>
       </dependency>
+
+      -->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-ldap</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.unboundid</groupId>
+            <artifactId>unboundid-ldapsdk</artifactId>
+        </dependency>
 
     </dependencies>
 

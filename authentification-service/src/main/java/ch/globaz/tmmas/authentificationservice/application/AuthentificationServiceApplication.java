@@ -1,16 +1,20 @@
 package ch.globaz.tmmas.authentificationservice.application;
 
+import ch.globaz.tmmas.authentificationservice.infrastructure.PersonneRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 
+import javax.annotation.PostConstruct;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -18,12 +22,16 @@ import java.util.stream.Collectors;
 @ComponentScan(basePackages = {"ch.globaz.tmmas.authentificationservice"})
 public class AuthentificationServiceApplication {
 
+    @Autowired
+    PersonneRepository personneRepository;
+
     private final Environment env;
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthentificationServiceApplication.class);
 
     public AuthentificationServiceApplication(Environment env) {
         this.env = env;
     }
+
 
     /**
      * Méthode exécutable démarrant l'application en mode jar
@@ -40,6 +48,14 @@ public class AuthentificationServiceApplication {
     }
 
 
+    @PostConstruct
+    public void setup(){
+        LOGGER.info("Spring LDAP + Spring Boot Configuration Example");
+
+        List<String> names = personneRepository.getAllPersonNames();
+        LOGGER.info("names: " + names);
+
+    }
 
 
     private static void logInitApplicationContext (Environment env) {

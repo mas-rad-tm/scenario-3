@@ -5,11 +5,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/hello")
+@RequestMapping("/auth")
 public class HelloController {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String index() {
+    @RequestMapping(method = RequestMethod.POST)
+    public String authentification() {
+
         return "Welcome to the home page!";
     }
 
