@@ -16,10 +16,29 @@ spring:
 # Security
 #####################################################################
   ldap:
-    embedded:
-      ldif: classpath:ldap-server.ldif
-      base-dn: dc=springframework,dc=org
-      port: 8389
+
+      # Spring LDAP
+      #
+      # In this example we use an embedded ldap server. When using a real one,
+      # you can configure the settings here.
+      #
+      # urls: ldap://localhost:12345
+      # base: dc=globaz.tmmas,dc=com
+      # username: uid=admin
+      # password: secret
+
+
+      # Embedded Spring LDAP
+      embedded:
+        partitionSuffix: dc=globaz.tmmas,dc=ch
+        base-dn: dc=globaz.tmmas,dc=ch
+        credential:
+          username: uid=admin
+          password: secret
+        ldif: classpath:ldap-server.ldif
+        port: 12345
+        validation:
+          enabled: false
 
 # mode jar, port et context
 server:
