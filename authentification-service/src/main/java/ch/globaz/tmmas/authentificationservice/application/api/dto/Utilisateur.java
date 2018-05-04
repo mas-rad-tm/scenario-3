@@ -11,7 +11,7 @@ import java.time.ZonedDateTime;
  * Commande de création d'une adresse. Fournie les informations minimales
  * nécessaires à la création d'une adresse postale.
  */
-@EqualsAndHashCode
+@EqualsAndgit HashCode
 @Getter
 @ToString
 public class Utilisateur implements DomainCommand {
