@@ -13,9 +13,10 @@
         <!-- dependances -->
         <spring-boot.version>2.0.1.RELEASE</spring-boot.version>
         <spring.version>5.0.5.RELEASE</spring.version>
-
+		<spring-security-core.version>5.0.4.RELEASE</spring-security-core.version>
         <logback.version>1.2.3</logback.version>
         <logback.encoder.version>4.11</logback.encoder.version>
+        <lombok.version>1.16.20</lombok.version>
 
         <!-- plugins -->
         <maven-compiler.version>3.7.0</maven-compiler.version>
@@ -100,44 +101,105 @@
             <groupId>com.unboundid</groupId>
             <artifactId>unboundid-ldapsdk</artifactId>
         </dependency>
-
-        <!--
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-            <version>${spring-boot.version}</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring-security-core.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring-security-core.version}</version>
+        </dependency>
+	    <dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>${spring-security-core.version}</version>
+	    </dependency>
 
-       <dependency>
-           <groupId>org.springframework.ldap</groupId>
-           <artifactId>spring-ldap-core</artifactId>
-       </dependency>
+	    <dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-ldap</artifactId>
+		    <version>${spring-security-core.version}</version>
+	    </dependency>
 
-      <dependency>
-          <groupId>org.springframework.security</groupId>
-          <artifactId>spring-security-ldap</artifactId>
-      </dependency>
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+            <version>4.23</version>
+        </dependency>
 
-      <dependency>
-          <groupId>com.unboundid</groupId>
-          <artifactId>unboundid-ldapsdk</artifactId>
-      </dependency>
+        <dependency>
+        <groupId>commons-lang</groupId>
+        <artifactId>commons-lang</artifactId>
+        <version>2.6</version>
+    </dependency>
 
-      <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-test</artifactId>
-          <version>${spring-boot.version}</version>
-          <scope>test</scope>
-      </dependency>
+    <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>1.10</version>
+    </dependency>
 
-      <dependency>
-          <groupId>org.springframework.security</groupId>
-          <artifactId>spring-security-test</artifactId>
-          <version>5.0.4.RELEASE</version>
-          <scope>test</scope>
-      </dependency>
+    <dependency>
+        <groupId>commons-httpclient</groupId>
+        <artifactId>commons-httpclient</artifactId>
+        <version>3.1</version>
+    </dependency>
+	    <!--<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>-->
+
+	    <!--
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+			<version>${spring-boot.version}</version>
+		</dependency>
+
+
+	   <dependency>
+		   <groupId>org.springframework.ldap</groupId>
+		   <artifactId>spring-ldap-core</artifactId>
+	   </dependency>
+
+	  <dependency>
+		  <groupId>org.springframework.security</groupId>
+		  <artifactId>spring-security-ldap</artifactId>
+	  </dependency>
+
+	  <dependency>
+		  <groupId>com.unboundid</groupId>
+		  <artifactId>unboundid-ldapsdk</artifactId>
+	  </dependency>
+
+	  <dependency>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-starter-test</artifactId>
+		  <version>${spring-boot.version}</version>
+		  <scope>test</scope>
+	  </dependency>
+
+	  <dependency>
+		  <groupId>org.springframework.security</groupId>
+		  <artifactId>spring-security-test</artifactId>
+		  <version>5.0.4.RELEASE</version>
+		  <scope>test</scope>
+	  </dependency>
 -->
+
+        <!-- lombok
+            repo:https://mvnrepository.com/artifact/org.projectlombok/lombok
+            doc: https://projectlombok.org/ -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>

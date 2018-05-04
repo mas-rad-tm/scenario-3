@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
+import org.springframework.security.authentication.AuthenticationManager;
 
 import javax.annotation.PostConstruct;
 import java.net.InetAddress;
@@ -30,6 +31,9 @@ public class AuthentificationServiceApplication {
 
     @Autowired
     UtilisateurRepository utilisateurRepository;
+
+    @Autowired
+    AuthenticationManager authenticationManager;
 
 
     /**
