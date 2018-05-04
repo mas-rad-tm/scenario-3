@@ -1,20 +1,16 @@
 package ch.globaz.tmmas.authentificationservice.application;
 
-import ch.globaz.tmmas.authentificationservice.infrastructure.PersonneRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 
-import javax.annotation.PostConstruct;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,15 +18,17 @@ import java.util.stream.Collectors;
 @ComponentScan(basePackages = {"ch.globaz.tmmas.authentificationservice"})
 public class AuthentificationServiceApplication {
 
-    @Autowired
-    PersonneRepository personneRepository;
 
-    private final Environment env;
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthentificationServiceApplication.class);
 
-    public AuthentificationServiceApplication(Environment env) {
-        this.env = env;
-    }
+    @Autowired
+    private ApplicationContext appContext;
+
+    @Autowired
+    UtilisateurRepository utilisateurRepository;
+
+    @Autowired
+    AuthenticationManager authenticationManager;
 
 
     /**
@@ -39,26 +37,47 @@ public class AuthentificationServiceApplication {
      */
     public static void main(String []args)  {
 
-        SpringApplication app = new SpringApplication(AuthentificationServiceApplication.class);
-
-        Environment env = app.run(args).getEnvironment();
-
-        logInitApplicationContext(env);
+        SpringApplication.run(AuthentificationServiceApplication.class);
 
     }
 
 
     @PostConstruct
     public void setup(){
-        LOGGER.info("Spring LDAP + Spring Boot Configuration Example");
+        logLdapInfos();
 
-        List<String> names = personneRepository.getAllPersonNames();
-        LOGGER.info("names: " + names);
+        logInitApplicationContext();
 
     }
 
+    private void logLdapInfos(){
+        LOGGER.info("Spring LDAP + Spring Boot Configuration Example");
 
-    private static void logInitApplicationContext (Environment env) {
+
+
+      //  List<String> groupes = utilisateurRepository.getGroupes();
+      //  LOGGER.info("groupes: " + groupes);
+
+        List<String> s = utilisateurRepository.searchByUsername("sce");
+        LOGGER.info("sce: " + s.toString());
+
+       // LOGGER.info("Loggin with sce, with bad password");
+       // utilisateurRepository.authenticate("sce","sdad");
+
+       // LOGGER.info("Loggin with bad user, with bad password");
+       // utilisateurRepository.authenticate("see","sdad");
+
+        LOGGER.info("Loggin with sce, ok");
+        utilisateurRepository.authenticate("sce","secret");
+
+
+    }
+
+    private  void logInitApplicationContext () {
+        Environment env = appContext.getEnvironment();
+
+
+
 
         ResourceProperties prop = new ResourceProperties();
         String[] staticLocation = prop.getStaticLocations();
@@ -97,7 +116,7 @@ public class AuthentificationServiceApplication {
 
     }
 
-    private static void logProxyInfo() {
+    private void logProxyInfo() {
 
         Optional<String> httpProxy = Optional.ofNullable(System.getProperties().getProperty("http.proxyHost"));
         Optional<String> httpsProxy = Optional.ofNullable(System.getProperties().getProperty("https.proxyHost"));

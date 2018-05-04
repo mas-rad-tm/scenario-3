@@ -4,25 +4,26 @@ objectclass: domain
 objectclass: extensibleObject
 dc: globaz.tmmas
 
-######################################
-# Organizational Units
-######################################
-### groupes
-dn: ou=groupe,dc=globaz.tmmas,dc=ch
+################################################
+########### Unite d'organisations ##############
+################################################
+
+######### groupes ########
+dn: ou=groupes,dc=globaz.tmmas,dc=ch
 objectclass: top
 objectclass: organizationalUnit
-ou: groupe
+ou: groupes
 
-### personne
-dn: ou=personne,dc=globaz.tmmas,dc=ch
+######### utilisateurs ########
+dn: ou=utilisateurs,dc=globaz.tmmas,dc=ch
 objectclass: top
 objectclass: organizationalUnit
-ou: personne
+ou: utilisateurs
 
-######################################
-# Create personne
-######################################
-dn: uid=sce,ou=personne,dc=globaz.tmmas,dc=ch
+################################################
+############### Utilisateurs ###################
+################################################
+dn: uid=sce,ou=utilisateurs,dc=globaz.tmmas,dc=ch
 objectclass: top
 objectclass: person
 objectclass: organizationalPerson
@@ -30,33 +31,43 @@ objectclass: inetOrgPerson
 cn: Sébastien Chèvre
 sn: Sébastien
 uid: sce
-password: secret
+userPassword: secret
 
-dn: uid=sce2,ou=personne,dc=globaz.tmmas,dc=ch
+dn: uid=mmo,ou=utilisateurs,dc=globaz.tmmas,dc=ch
 objectclass: top
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
-cn: Sébastien Chèvre 2
-sn: Sébastien2
-uid: sce2
+cn: Mickey Mouse
+sn: Mickey
+uid: mmo
 password: secret
 
+dn: uid=pic,ou=utilisateurs,dc=globaz.tmmas,dc=ch
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Picsou Duck
+sn: Picsou
+uid: pic
+password: secret
 
-######################################
-# Create groupe
-######################################
-dn: cn=utilisateurs,ou=groupe,dc=globaz.tmmas,dc=ch
+################################################
+################## Groupes #####################
+################################################
+dn: cn=gestionnaires,ou=groupes,dc=globaz.tmmas,dc=ch
 objectclass: top
 objectclass: groupOfUniqueNames
-cn: utilisateurs
-ou: utilisateurs
-uniqueMember: uid=sce,ou=personne,dc=globaz.tmmas,dc=ch
-uniqueMember: uid=sce2,ou=personne,dc=globaz.tmmas,dc=ch
+cn: developers
+ou: developer
+uniqueMember: uid=sce,ou=utilisateurs,dc=globaz.tmmas,dc=ch
+uniqueMember: uid=pic,ou=utilisateurs,dc=globaz.tmmas,dc=ch
+uniqueMember: uid=mmo,ou=utilisateurs,dc=globaz.tmmas,dc=ch
 
-dn: cn=administrateurs,ou=groupe,dc=globaz.tmmas,dc=ch
+dn: cn=administrateurs,ou=groupes,dc=globaz.tmmas,dc=ch
 objectclass: top
 objectclass: groupOfUniqueNames
-cn: administrateurs
-ou: administrateurs
-uniqueMember: uid=sce,ou=personne,dc=globaz.tmmas,dc=ch
+cn: managers
+ou: manager
+uniqueMember: uid=sce,ou=utilisateurs,dc=globaz.tmmas,dc=ch
