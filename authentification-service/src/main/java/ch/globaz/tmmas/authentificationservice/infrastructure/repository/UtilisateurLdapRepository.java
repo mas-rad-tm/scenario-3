@@ -58,6 +58,7 @@ public class UtilisateurLdapRepository implements UtilisateurRepository{
 
     @Override
     public void authenticate(final String username, final String password) {
+
         contextSource.getContext("uid=" + username + ",ou=utilisateurs," + env.getRequiredProperty("spring.ldap.embedded.partitionSuffix"), password);
     }
 
