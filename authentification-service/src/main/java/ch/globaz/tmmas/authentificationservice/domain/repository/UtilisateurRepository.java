@@ -1,5 +1,7 @@
 package ch.globaz.tmmas.authentificationservice.domain.repository;
 
+import ch.globaz.tmmas.authentificationservice.domain.model.UtilisateursLdap;
+
 import java.util.List;
 
 public interface UtilisateurRepository {
@@ -8,7 +10,9 @@ public interface UtilisateurRepository {
 
     List<String> searchByUsername(String username);
 
-    void authenticate(String username, String password);
+    UtilisateursLdap getByUUID(String uuid);
+
+    UtilisateursLdap authenticate(String username, String password);
 
     List<String> getGroupes();
 }
