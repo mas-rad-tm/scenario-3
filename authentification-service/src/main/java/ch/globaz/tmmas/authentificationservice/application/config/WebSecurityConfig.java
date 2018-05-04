@@ -3,6 +3,7 @@ package ch.globaz.tmmas.authentificationservice.application.config;
 
 import ch.globaz.tmmas.authentificationservice.application.filter.JwtTokenAuthenticationFilter;
 import ch.globaz.tmmas.authentificationservice.application.filter.RestAccessDeniedHandler;
+import ch.globaz.tmmas.authentificationservice.application.filter.SecurityAuthenticationEntryPoint;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -41,7 +42,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
  * <p>
  * ${VERSION}
  */
-@Configuration
+//@Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 

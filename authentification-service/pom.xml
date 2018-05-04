@@ -165,7 +165,7 @@
 	   <dependency>
 		   <groupId>org.springframework.ldap</groupId>
 		   <artifactId>spring-ldap-core</artifactId>
-	   </dependency>
+	   </dependency>-->
         <!-- lombok
         repo:https://mvnrepository.com/artifact/org.projectlombok/lombok
         doc: https://projectlombok.org/ -->
@@ -222,7 +222,7 @@
           <scope>test</scope>
       </dependency>
 
-      -->
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

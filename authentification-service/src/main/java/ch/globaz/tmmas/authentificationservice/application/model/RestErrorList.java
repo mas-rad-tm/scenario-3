@@ -1,4 +1,4 @@
-package ch.globaz.tmmas.authentificationservice.application;
+package ch.globaz.tmmas.authentificationservice.application.model;
 
 /**
  * Created by seb on .
@@ -9,7 +9,7 @@ package ch.globaz.tmmas.authentificationservice.application;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.messaging.support.ErrorMessage;
+
 
 import java.util.ArrayList;
 

@@ -27,7 +27,7 @@ import static com.nimbusds.jose.JWSAlgorithm.HS256;
  * <p>
  * ${VERSION}
  */
-public final class JWTUtils {
+public final class JwtUtils {
 
     private final static String AUDIENCE_UNKNOWN = "unknown";
     private final static String AUDIENCE_WEB = "web";

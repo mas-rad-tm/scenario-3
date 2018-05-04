@@ -1,8 +1,10 @@
 package ch.globaz.tmmas.authentificationservice.application.filter;
 
+import ch.globaz.tmmas.authentificationservice.application.JwtUtils;
 import ch.globaz.tmmas.authentificationservice.application.exception.JwtBadSignatureException;
 import ch.globaz.tmmas.authentificationservice.application.exception.JwtExpirationException;
 import ch.globaz.tmmas.authentificationservice.application.exception.MalformedJwtException;
+import ch.globaz.tmmas.authentificationservice.application.model.JwtUser;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jwt.SignedJWT;
 import org.springframework.security.authentication.AccountExpiredException;
@@ -26,6 +28,7 @@ import java.text.ParseException;
 import java.util.Collection;
 import java.util.Date;
 
+import static ch.globaz.tmmas.authentificationservice.application.JwtUtils.*;
 import static com.nimbusds.jwt.SignedJWT.parse;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
