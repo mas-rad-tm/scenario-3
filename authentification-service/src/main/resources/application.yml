@@ -36,9 +36,19 @@ spring:
           username: uid=admin
           password: secret
         ldif: classpath:ldap-server.ldif
-        port: 12345
+        port: 8389
         validation:
           enabled: false
+
+
+ldap:
+  user:
+    dn:
+      patterns: cn={0},dc=globaz.tmmas,dc=ch
+  provider:
+    url: ldap://localhost:8389/
+    userdn: dc=globaz.tmmas,dc=ch
+    password: secret
 
 # mode jar, port et context
 server:

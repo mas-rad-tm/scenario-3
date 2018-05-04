@@ -304,7 +304,7 @@
     </build>
     <!-- repositories aalfresco pour db2 -->
     <repositories>
-        <repository>
+       <repository>
             <id>alfresco</id>
             <name>alfresco</name>
             <url>https://artifacts.alfresco.com/nexus/content/repositories/public/</url>
