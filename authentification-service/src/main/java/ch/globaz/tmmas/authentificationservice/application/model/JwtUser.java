@@ -1,5 +1,6 @@
 package ch.globaz.tmmas.authentificationservice.application.model;
 
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -7,61 +8,51 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 
+@Getter
 public class JwtUser implements UserDetails {
-	private String username;
 
-	private Collection<? extends GrantedAuthority> authorities;
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+	private final Integer id;
+	private final String username;
+	private final String firstname;
+	private final String lastname;
+	private final String password;
+	private final String authtype;
+	private final String email;
+	private final Collection<? extends GrantedAuthority> authorities;
+	private final boolean enabled;
+	private final boolean admin;
+	private final Date lastPasswordResetDate;
 
-	private Date creationDate;
-
-	public JwtUser(String username, Date creationDate) {
-		this(username, creationDate, Collections.EMPTY_LIST);
-	}
-
-	public JwtUser(String username, Date creationDate, Collection<? extends GrantedAuthority> authorities) {
+	public JwtUser(Integer id, String username, String firstname, String lastname, String password, String email, String authtype, boolean admin, Collection<? extends GrantedAuthority> authorities, boolean enabled, Date lastPasswordResetDate) {
+		this.id = id;
 		this.username = username;
-		this.creationDate = creationDate;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.password = password;
+		this.email = email;
+		this.authtype = authtype;
 		this.authorities = authorities;
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return authorities;
-	}
-
-	@Override
-	public String getPassword() {
-		// no password inside JWT token.
-		return null;
-	}
-
-	@Override
-	public String getUsername() {
-		return username;
+		this.admin = admin;
+		this.enabled = enabled;
+		this.lastPasswordResetDate = lastPasswordResetDate;
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// A token is never locked
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// == token expiration
-		// TODO
-		return true;
+		return false;
 	}
-
-	@Override
-	public boolean isEnabled() {
-		// always enabled in JWT case.
-		return true;
-	}
-
 }

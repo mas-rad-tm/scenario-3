@@ -24,8 +24,8 @@ spring:
       #
       # urls: ldap://localhost:12345
       # base: dc=globaz.tmmas,dc=com
-      # username: uid=admin
-      # password: secret
+      # nomUtilisateur: uid=admin
+      # motDePasse: secret
 
 
       # Embedded Spring LDAP
@@ -33,22 +33,14 @@ spring:
         partitionSuffix: dc=globaz.tmmas,dc=ch
         base-dn: dc=globaz.tmmas,dc=ch
         credential:
-          username: uid=admin
-          password: secret
+          nomUtilisateur: uid=admin
+          motDePasse: secret
         ldif: classpath:ldap-server.ldif
         port: 8389
         validation:
           enabled: false
 
 
-ldap:
-  user:
-    dn:
-      patterns: cn={0},dc=globaz.tmmas,dc=ch
-  provider:
-    url: ldap://localhost:8389/
-    userdn: dc=globaz.tmmas,dc=ch
-    password: secret
 
 # mode jar, port et context
 server:
@@ -82,4 +74,10 @@ management:
       enabled:                            true
     logfile:
       enabled:                            true
+
+authentication:
+   jwt:
+     header: Authorization
+     secret: mySecret
+     expiration: 604800
 

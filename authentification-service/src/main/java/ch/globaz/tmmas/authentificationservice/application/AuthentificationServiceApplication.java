@@ -12,7 +12,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
+import org.springframework.ldap.core.ContextSource;
+import org.springframework.ldap.core.support.BaseLdapPathContextSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.ldap.DefaultSpringSecurityContextSource;
+import org.springframework.security.ldap.authentication.BindAuthenticator;
+import org.springframework.security.ldap.authentication.LdapAuthenticationProvider;
+import org.springframework.security.ldap.search.FilterBasedLdapUserSearch;
 
 import javax.annotation.PostConstruct;
 import java.net.InetAddress;
@@ -34,6 +40,9 @@ public class AuthentificationServiceApplication {
     @Autowired
     UtilisateurRepository utilisateurRepository;
 
+
+    @Autowired
+    ContextSource contextSource;
 
     /**
      * Méthode exécutable démarrant l'application en mode jar
@@ -67,10 +76,10 @@ public class AuthentificationServiceApplication {
         List<String> s = utilisateurRepository.searchByUsername("sce");
         LOGGER.info("sce: " + s.toString());
 
-       // LOGGER.info("Loggin with sce, with bad password");
+       // LOGGER.info("Loggin with sce, with bad motDePasse");
        // utilisateurRepository.authenticate("sce","sdad");
 
-       // LOGGER.info("Loggin with bad user, with bad password");
+       // LOGGER.info("Loggin with bad user, with bad motDePasse");
        // utilisateurRepository.authenticate("see","sdad");
 
         LOGGER.info("Loggin with sce, ok");
@@ -78,6 +87,29 @@ public class AuthentificationServiceApplication {
         LOGGER.info(user.toString());
 
 
+    }
+
+    @Bean
+    ContextSource contextSource () {
+        DefaultSpringSecurityContextSource source = new DefaultSpringSecurityContextSource("ldap://localhost:8389/dc=globaz.tmmas,dc=ch");
+        //source.setUserDn("uid=admin");
+        //source.setPassword("secret");
+
+        return source;
+    }
+
+
+
+    @Bean
+    FilterBasedLdapUserSearch ldapUserSearch () {
+        return new FilterBasedLdapUserSearch("dc=globaz.tmmas,dc=ch","sce", (BaseLdapPathContextSource) contextSource());
+    }
+
+    @Bean
+    LdapAuthenticationProvider ldapAuthenticationProvider () {
+        BindAuthenticator authenticator = new BindAuthenticator((BaseLdapPathContextSource) contextSource());
+
+        return new LdapAuthenticationProvider(authenticator);
     }
 
     @Bean

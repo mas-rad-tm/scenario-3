@@ -41,7 +41,7 @@ objectclass: inetOrgPerson
 cn: Mickey Mouse
 sn: Mickey
 uid: mmo
-password: secret
+motDePasse: secret
 
 dn: uid=pic,ou=utilisateurs,dc=globaz.tmmas,dc=ch
 objectclass: top
@@ -51,7 +51,7 @@ objectclass: inetOrgPerson
 cn: Picsou Duck
 sn: Picsou
 uid: pic
-password: secret
+motDePasse: secret
 
 ################################################
 ################## Groupes #####################

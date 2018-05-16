@@ -19,7 +19,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**
  * SecurityAuthenticationEntryPoint is called by ExceptionTranslationFilter to handle all AuthenticationException.
- * These exceptions are thrown when authentication failed : wrong login/password, authentication unavailable, invalid token
+ * These exceptions are thrown when authentication failed : wrong login/motDePasse, authentication unavailable, invalid token
  * authentication expired, etc.
  *
  * For problems related to access (roles), see RestAccessDeniedHandler.

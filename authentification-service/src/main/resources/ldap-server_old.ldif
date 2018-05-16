@@ -30,7 +30,7 @@ objectclass: inetOrgPerson
 cn: S?bastien Ch?vre
 sn: Sebastien
 uid: sce
-password: 110978
+motDePasse: 110978
 
 dn: uid=us1,ou=user,dc=globaztmmas,dc=ch
 objectclass: top
@@ -40,7 +40,7 @@ objectclass: inetOrgPerson
 cn: User1
 sn: User1
 uid: us1
-password: us110978
+motDePasse: us110978
 
 dn: uid=ad1,ou=user,dc=globaztmmas,dc=ch
 objectclass: top
@@ -50,7 +50,7 @@ objectclass: inetOrgPerson
 cn: Ad1
 sn: Ad1
 uid: ad1
-password: ad110978
+motDePasse: ad110978
 
 #################################
 ### Groupes ###

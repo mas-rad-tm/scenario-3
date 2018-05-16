@@ -68,7 +68,7 @@ public class UtilisateurLdapRepository implements UtilisateurRepository{
 
 
 
-                    return new UtilisateursLdap((String)attrs.get("uid").get(),(String)attrs.get("userpassword").get());
+                    return new UtilisateursLdap((String)attrs.get("uid").get(),(String)attrs.get("userpassword").get().toString());
 
                 });
 
@@ -76,7 +76,7 @@ public class UtilisateurLdapRepository implements UtilisateurRepository{
 /**
         return ldapTemplate.search(
                 "ou=utilisateurs, dc=globaz.tmmas, dc=ch",
-                "uid=" + username,
+                "uid=" + nomUtilisateur,
                 (AttributesMapper<String>) attrs -> (String) attrs
                         .get("cn")
                         .get());
@@ -87,11 +87,11 @@ public class UtilisateurLdapRepository implements UtilisateurRepository{
     public UtilisateursLdap authenticate(final String username, final String password) {
 
         /**
-        Filter filter = new EqualsFilter("uid", username);
+        Filter filter = new EqualsFilter("uid", nomUtilisateur);
 
         boolean authed = ldapTemplate.authenticate("dc=globaz.tmmas, dc=ch",
                 filter.encode(),
-                password);
+                motDePasse);
 */
 
 
