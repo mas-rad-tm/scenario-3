@@ -26,6 +26,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.List;
 
