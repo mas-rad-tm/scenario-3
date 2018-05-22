@@ -2,7 +2,6 @@ package lab.application.api.web.rest;
 
 import lab.application.api.web.ApiResponse;
 import lab.application.api.web.request.SignUpRequest;
-import lab.application.security.JwtTokenProvider;
 import lab.model.Role;
 import lab.model.Utilisateur;
 import lab.repository.RoleRepository;
@@ -11,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,8 +25,6 @@ import java.util.Collections;
 @RequestMapping("/api/auth")
 public class SignupController {
 
-
-
     @Autowired
     UtilisateurRepository userRepository;
 
@@ -38,33 +34,9 @@ public class SignupController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @Autowired
-    JwtTokenProvider tokenProvider;
 
     private static final Logger logger = LoggerFactory.getLogger(SignupController.class);
 
-/**
-    @PostMapping("/login")
-    public ResponseEntity<?> authentification(@Valid @RequestBody LoginRequest loginRequest) {
-
-        logger.info("*** Tentative de login avec credentials: {}",loginRequest);
-
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getNomUtilisateur(),
-                        loginRequest.getMotDePasse()
-                )
-        );
-
-        logger.info("*** Loggin effectué: {}",authentication);
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        String jwt = tokenProvider.generateToken(authentication);
-
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
-    }
-*/
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
 

@@ -1,13 +1,11 @@
 package lab.application.service.impl;
 
 
-import lab.application.security.JwtTokenProvider;
+
 import lab.application.service.UtilisateurService;
 import lab.model.Utilisateur;
 import lab.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,9 +27,6 @@ public class UtilisateurDetailService implements UtilisateurService {
         return utilisateurRepository.findById(id);
     }
 
-    public UserDetails getUserFromToken(String token) {
-        return new JwtTokenProvider().getUserdFromJWT(token);
-    }
 
     @Transactional
     @Override

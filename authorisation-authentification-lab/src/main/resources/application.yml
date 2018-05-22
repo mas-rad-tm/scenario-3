@@ -29,7 +29,7 @@ spring:
 
 ########## Config jwt
 lab.security.jwt:
-  tokenExpirationTime: 15 # Number of minutes
-  refreshTokenExpTime: 60 # Minutes
+  tokenExpirationTime: 1 #15 # Number of minutes
+  refreshTokenExpTime: 3 #60 # Minutes
   tokenIssuer: sebooom.com
   tokenSigningKey: xm8EV6Hy5RMFK4EEACIDAwQus
