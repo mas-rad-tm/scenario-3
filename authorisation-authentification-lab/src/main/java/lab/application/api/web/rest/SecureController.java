@@ -1,14 +1,11 @@
-package lab.application.api.web;
+package lab.application.api.web.rest;
 
-import lab.model.Roles;
+import lab.application.api.web.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/secure")

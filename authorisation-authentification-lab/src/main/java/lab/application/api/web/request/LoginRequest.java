@@ -1,4 +1,4 @@
-package lab.application.api.web;
+package lab.application.api.web.request;
 
 import lombok.Getter;
 import lombok.Setter;

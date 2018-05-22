@@ -1,4 +1,4 @@
-package lab.application.api.web;
+package lab.application.api.web.request;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

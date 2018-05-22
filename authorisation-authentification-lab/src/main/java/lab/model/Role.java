@@ -3,6 +3,7 @@ package lab.model;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -10,7 +11,7 @@ import java.util.Collection;
 @Getter
 @Setter
 @EqualsAndHashCode
-//@ToString
+@ToString(exclude = "users")
 @Entity
 @Table(name = "role")
 public class Role {

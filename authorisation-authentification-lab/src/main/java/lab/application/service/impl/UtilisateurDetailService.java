@@ -1,7 +1,8 @@
-package lab.application;
+package lab.application.service.impl;
 
 
 import lab.application.security.JwtTokenProvider;
+import lab.application.service.UtilisateurService;
 import lab.model.Utilisateur;
 import lab.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 
 @Service
-public class UtilisateurDetailService implements UserDetailsService {
+public class UtilisateurDetailService implements UtilisateurService {
 
 
     @Autowired
@@ -21,10 +24,9 @@ public class UtilisateurDetailService implements UserDetailsService {
 
 
     @Transactional
-    public UserDetails loadUserByUId(Long id) throws UsernameNotFoundException {
+    public Optional<Utilisateur> loadUserByUId(Long id) throws UsernameNotFoundException {
 
-        Utilisateur utilisateur = utilisateurRepository.findById(id).get();
-        return utilisateur;
+        return utilisateurRepository.findById(id);
     }
 
     public UserDetails getUserFromToken(String token) {
@@ -33,10 +35,10 @@ public class UtilisateurDetailService implements UserDetailsService {
 
     @Transactional
     @Override
-    public UserDetails loadUserByUsername(String nomUtilisateur) throws UsernameNotFoundException {
+    public Optional<Utilisateur> loadUserByUsername(String nomUtilisateur) throws UsernameNotFoundException {
 
-        Utilisateur utilisateur = utilisateurRepository.findByNomUtilisateur(nomUtilisateur);
-        return utilisateur;
+        return utilisateurRepository.findByNomUtilisateur(nomUtilisateur);
+
     }
 
 

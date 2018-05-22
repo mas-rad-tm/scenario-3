@@ -1,0 +1,86 @@
+/*
+    @Autowired
+    UtilisateurDetailService utilisateurDetailService;
+
+    @Autowired
+    private JwtAuthentificationEntryPoint unauthorizedHandler;
+
+    @Bean
+    public JwtAuthentificationFilter jwtAuthenticationFilter() {
+        return new JwtAuthentificationFilter();
+    }
+
+    @Override
+    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder
+                .userDetailsService(utilisateurDetailService)
+                .passwordEncoder(passwordEncoder());
+    }
+
+    @Bean(BeanIds.AUTHENTICATION_MANAGER)
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    /**
+     * https://stackoverflow.com/questions/24364436/adding-a-custom-filter-to-be-invoked-after-spring-security-filter-in-a-servlet-3/37904857#37904857
+     * @param jwtAuthentificationFilter
+     * @return
+     */
+
+    /*
+    @Bean
+    public  FilterRegistrationBean jwtAuthentificationFilterRegistration (JwtAuthentificationFilter jwtAuthentificationFilter) {
+        FilterRegistrationBean b = new FilterRegistrationBean();
+        b.setFilter(jwtAuthentificationFilter);
+        b.setEnabled(Boolean.FALSE);
+        return b;
+    }
+
+
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .cors()
+                .and()
+                .csrf()
+                .disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(unauthorizedHandler)
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                .antMatchers("/",
+                        "/favicon.ico",
+                        "/**/*.png",
+                        "/**/*.gif",
+                        "/**/*.svg",
+                        "/**/*.jpg",
+                        "/**/*.html",
+                        "/**/*.css",
+                        "/**/*.js",
+                        "/h2/**")
+       /*         .permitAll()
+                .antMatchers("/api/auth/**")
+                .permitAll()
+                .antMatchers("/api/public/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated();
+
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
+        // Add our custom JWT security filter
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+
+    }
+*/

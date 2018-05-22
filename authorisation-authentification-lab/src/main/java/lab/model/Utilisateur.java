@@ -3,6 +3,7 @@ package lab.model;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode
-//@ToString
+@ToString
 @Entity
 @Table(name = "utilisateurs")
 public class Utilisateur implements UserDetails{
@@ -69,6 +70,20 @@ public class Utilisateur implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        for (Role role: this.getRoles()) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+            role.getPermissions().stream()
+                    .map(p -> new SimpleGrantedAuthority(p.getName()))
+                    .forEach(authorities::add);
+        }
+
+        return authorities;
+    }
+
+
+    public List<GrantedAuthority> getAuthoritiesAsList() {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         for (Role role: this.getRoles()) {

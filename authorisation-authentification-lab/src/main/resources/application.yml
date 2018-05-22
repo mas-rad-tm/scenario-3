@@ -26,3 +26,10 @@ spring:
     url: jdbc:h2:mem:registration_02;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     user: sa
     pass: sa
+
+########## Config jwt
+lab.security.jwt:
+  tokenExpirationTime: 15 # Number of minutes
+  refreshTokenExpTime: 60 # Minutes
+  tokenIssuer: sebooom.com
+  tokenSigningKey: xm8EV6Hy5RMFK4EEACIDAwQus
