@@ -27,8 +27,7 @@ import java.util.Collections;
 @RequestMapping("/api/auth")
 public class SignupController {
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+
 
     @Autowired
     UtilisateurRepository userRepository;
