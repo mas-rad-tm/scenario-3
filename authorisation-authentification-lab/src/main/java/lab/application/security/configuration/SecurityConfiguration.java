@@ -1,9 +1,8 @@
-package lab.application;
+package lab.application.security.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lab.application.api.web.common.JwtSkipPathRequestMatcher;
 import lab.application.api.web.rest.RestAuthentificationEntryPoint;
-import lab.application.security.JwtTokenProvider;
 import lab.application.security.filter.CustomCorsFilter;
 import lab.application.security.filter.JwtAuthentificationProcessingFilter;
 import lab.application.security.filter.LoginProcessingFilter;
@@ -20,8 +19,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;

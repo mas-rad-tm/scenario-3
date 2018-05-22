@@ -2,7 +2,7 @@ package lab.application.security.provider;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
-import lab.application.security.JwtAuthenticationToken;
+import lab.application.security.jwt.JwtAuthenticationToken;
 import lab.application.security.configuration.JwtSettings;
 import lab.application.security.jwt.RawAccessJwtToken;
 import lab.model.ContexteUtilisateur;
@@ -39,7 +39,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider{
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
 
-         RawAccessJwtToken rawAccessToken = (RawAccessJwtToken) authentication.getCredentials();
+        RawAccessJwtToken rawAccessToken = (RawAccessJwtToken) authentication.getCredentials();
         Jws<Claims> jwsClaims = rawAccessToken.parseClaims(jwtSettings.getTokenSigningKey());
         String subject = jwsClaims.getBody().getSubject();
 

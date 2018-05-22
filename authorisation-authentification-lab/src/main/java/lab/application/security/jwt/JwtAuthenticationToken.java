@@ -1,4 +1,4 @@
-package lab.application.security;
+package lab.application.security.jwt;
 
 
 import lab.application.security.jwt.RawAccessJwtToken;
