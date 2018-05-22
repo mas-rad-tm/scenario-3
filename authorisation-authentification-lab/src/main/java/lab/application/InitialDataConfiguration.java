@@ -48,10 +48,7 @@ public class InitialDataConfiguration implements
     private static final Logger logger = LoggerFactory.getLogger(InitialDataConfiguration.class);
 
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 
     @Override
     @Transactional
