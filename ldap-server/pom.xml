@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ch.globaz.tmmas</groupId>
+    <artifactId>ldap-server</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <properties>
+
+        <!-- dependances -->
+        <spring-boot.version>2.0.1.RELEASE</spring-boot.version>
+        <spring.version>5.0.5.RELEASE</spring.version>
+        <spring-security.version>5.0.4.RELEASE</spring-security.version>
+        <lombok.version>1.16.20</lombok.version>
+        <logback.version>1.2.3</logback.version>
+        <logback.encoder.version>4.11</logback.encoder.version>
+
+        <!-- plugins -->
+        <maven-compiler.version>3.7.0</maven-compiler.version>
+
+
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencyManagement>
+
+        <dependencies>
+            <!-- ********************************* -->
+            <!-- ************* Spring ************ -->
+            <!-- ********************************* -->
+            <!-- spring boot -->
+            <!--
+            repo: https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies
+            doc: doc: https://docs.spring.io/spring-boot/docs/1.5.9.RELEASE/reference/htmlsingle -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+
+    <dependencies>
+
+        <!-- spring web mvc-->
+        <!--
+        repo: https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
+        doc: doc: https://docs.spring.io/spring-boot/docs/1.5.9.RELEASE/reference/htmlsingle-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+
+        <!-- ****** Logging ****** -->
+        <!-- logback classic
+        repo: https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+        doc: https://logback.qos.ch/documentation.html -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <!-- logback core
+        repo: https://mvnrepository.com/artifact/ch.qos.logback/logback-core
+        doc: https://logback.qos.ch/documentation.html -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <!-- logback logstash encoder, formattage json des logs
+        repo: https://mvnrepository.com/artifact/net.logstash.logback/logstash-logback-encoder
+        doc: https://github.com/logstash/logstash-logback-encoder -->
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>${logback.encoder.version}</version>
+        </dependency>
+
+
+        <!-- LDAP ET SECURITE -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-ldap</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.unboundid</groupId>
+            <artifactId>unboundid-ldapsdk</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-ldap</artifactId>
+        </dependency>
+
+        <!-- lombok
+            repo:https://mvnrepository.com/artifact/org.projectlombok/lombok
+            doc: https://projectlombok.org/ -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+    
+</project>

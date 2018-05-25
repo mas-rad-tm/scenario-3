@@ -1,0 +1,80 @@
+dn: dc=globaz.tmmas,dc=ch
+objectclass: top
+objectclass: domain
+objectclass: extensibleObject
+dc: globaz.tmmas
+
+################################################
+########### Unite d'organisations ##############
+################################################
+
+######### groupes ########
+dn: ou=groupes,dc=globaz.tmmas,dc=ch
+objectclass: top
+objectclass: organizationalUnit
+ou: groupes
+
+######### utilisateurs ########
+dn: ou=utilisateurs,dc=globaz.tmmas,dc=ch
+objectclass: top
+objectclass: organizationalUnit
+ou: utilisateurs
+
+################################################
+############### Utilisateurs ###################
+################################################
+dn: uid=sce,ou=utilisateurs,dc=globaz.tmmas,dc=ch
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Sébastien Chèvre
+sn: Sébastien
+uid: sce
+userPassword: secret
+
+dn: uid=mmo,ou=utilisateurs,dc=globaz.tmmas,dc=ch
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Mickey Mouse
+sn: Mickey
+uid: mmo
+userPassword: secret
+
+dn: uid=pic,ou=utilisateurs,dc=globaz.tmmas,dc=ch
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Picsou Duck
+sn: Picsou
+uid: pic
+userPassword: secret
+
+################################################
+################## Groupes #####################
+################################################
+dn: cn=gestionnaire,ou=groupes,dc=globaz.tmmas,dc=ch
+objectclass: top
+objectclass: groupOfUniqueNames
+cn: gestionnaire
+ou: gestionnaire
+uniqueMember: uid=sce,ou=utilisateurs,dc=globaz.tmmas,dc=ch
+uniqueMember: uid=pic,ou=utilisateurs,dc=globaz.tmmas,dc=ch
+uniqueMember: uid=mmo,ou=utilisateurs,dc=globaz.tmmas,dc=ch
+
+dn: cn=responsable,ou=groupes,dc=globaz.tmmas,dc=ch
+objectclass: top
+objectclass: groupOfUniqueNames
+cn: responsable
+ou: responsable
+uniqueMember: uid=sce,ou=utilisateurs,dc=globaz.tmmas,dc=ch
+
+dn: cn=stagiaire,ou=groupes,dc=globaz.tmmas,dc=ch
+objectclass: top
+objectclass: groupOfUniqueNames
+cn: stagiaire
+ou: stagiaire
+uniqueMember: uid=mmo,ou=utilisateurs,dc=globaz.tmmas,dc=ch

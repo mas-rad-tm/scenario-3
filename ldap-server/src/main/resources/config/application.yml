@@ -1,0 +1,83 @@
+#####################################################################
+# Configuration Spring de base
+#####################################################################
+# app name
+spring:
+  application:
+    name:                            authentification-service
+#jackson null default desactivate
+  jackson:
+    default-property-inclusion:      NON_NULL
+#profiles spring
+  profiles:
+    active:                          maison
+
+#####################################################################
+# Security
+#####################################################################
+  ldap:
+
+      # Spring LDAP
+      #
+      # In this example we use an embedded ldap server. When using a real one,
+      # you can configure the settings here.
+      #
+      # urls: ldap://localhost:12345
+      # base: dc=globaz.tmmas,dc=com
+      # nomUtilisateur: uid=admin
+      # motDePasse: secret
+
+
+      # Embedded Spring LDAP
+      embedded:
+        partitionSuffix: dc=globaz.tmmas,dc=ch
+        base-dn: dc=globaz.tmmas,dc=ch
+        credential:
+          nomUtilisateur: uid=admin
+          motDePasse: secret
+        ldif: classpath:ldap-server.ldif
+        port: 8389
+        validation:
+          enabled: false
+
+
+
+# mode jar, port et context
+server:
+  port:                              ${PORT:8010}
+  servlet.context-path:                       /authentification-service
+
+#####################################################################
+# Configuration Spring actuator
+#####################################################################
+management:
+  server.servlet.context-path:                         /actuator
+
+# configuration des endpoints
+management:
+  endpoint:
+    hypermedia:
+      enabled:                            true
+    actuator:
+      enabled:                            true
+    beans:
+      enabled:                            true
+    env:
+      enabled:                            true
+    metrics:
+      enabled:                            true
+    health:
+      enabled:                            true
+    mappings:
+      enabled:                            true
+    docs:
+      enabled:                            true
+    logfile:
+      enabled:                            true
+
+authentication:
+   jwt:
+     header: Authorization
+     secret: mySecret
+     expiration: 604800
+
