@@ -4,18 +4,20 @@
 hibernate:
   driver-class-name:              org.h2.Driver
   url:                            jdbc:h2:mem:personnes-schema;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;INIT=CREATE
-  SCHEMA IF NOT EXISTS rentes
-  username:                       sa
+                                                                                                          SCHEMA IF
+                                                                                                          NOT EXISTS
+                                                                                                          personnes
+  username: sa
   password:
-  dialect:                        org.hibernate.dialect.H2Dialect
+  dialect: org.hibernate.dialect.H2Dialect
   hbm2ddl:
-    auto:                         create-drop
+    auto: create-drop
   show:
-    sql:                          true
+    sql: true
 
 
 spring:
   h2:
     console:
-      enabled:                    true
-      path:                       /h2
+      enabled: true
+      path: /h2

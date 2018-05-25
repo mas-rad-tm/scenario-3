@@ -48,74 +48,16 @@ public class LdapServerApplication {
      * @param args les arguments d'entrées
      */
     public static void main(String []args)  {
-
         SpringApplication.run(LdapServerApplication.class);
-
     }
 
 
     @PostConstruct
     public void setup(){
-        logLdapInfos();
-
         logInitApplicationContext();
-
     }
 
-    private void logLdapInfos(){
-        LOGGER.info("Spring LDAP + Spring Boot Configuration Example");
 
-        List<String> names = utilisateurService.getAllPersonNames();
-        LOGGER.info("names: " + names);
-
-
-        //  List<String> groupes = utilisateurRepository.getGroupes();
-        //  LOGGER.info("groupes: " + groupes);
-
-        List<String> s = utilisateurService.searchByUsername("sce");
-        LOGGER.info("sce: " + s.toString());
-
-        // LOGGER.info("Loggin with sce, with bad motDePasse");
-        // utilisateurRepository.authenticate("sce","sdad");
-
-        // LOGGER.info("Loggin with bad user, with bad motDePasse");
-        // utilisateurRepository.authenticate("see","sdad");
-
-        LOGGER.info("Loggin with sce, ok");
-        UtilisateursLdap user = utilisateurService.authenticate("sce","secret");
-        LOGGER.info(user.toString());
-
-        System.out.println(utilisateurService.getByUUID("sce"));
-
-        System.out.println(utilisateurService.getGroupes());
-
-
-    }
-
-    /**
-    @Bean
-    ContextSource contextSource () {
-        DefaultSpringSecurityContextSource source = new DefaultSpringSecurityContextSource("ldap://localhost:8389/dc=globaz.tmmas,dc=ch");
-        //source.setUserDn("uid=admin");
-        //source.setPassword("secret");
-
-        return source;
-    }*/
-
-
-
-    /**@Bean
-    FilterBasedLdapUserSearch ldapUserSearch () {
-        return new FilterBasedLdapUserSearch("dc=globaz.tmmas,dc=ch","sce", (BaseLdapPathContextSource) contextSource());
-    }*/
-
-    /**
-    @Bean
-    LdapAuthenticationProvider ldapAuthenticationProvider () {
-        BindAuthenticator authenticator = new BindAuthenticator((BaseLdapPathContextSource) contextSource());
-
-        return new LdapAuthenticationProvider(authenticator);
-    }*/
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {

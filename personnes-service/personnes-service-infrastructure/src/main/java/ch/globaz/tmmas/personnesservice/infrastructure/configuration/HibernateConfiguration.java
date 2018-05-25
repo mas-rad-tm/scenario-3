@@ -26,10 +26,10 @@ public class HibernateConfiguration {
 	@Value("${hibernate.url}")
 	private String URL;
 
-	@Value("${hibernate.nomUtilisateur}")
+	@Value("${hibernate.username}")
 	private String USERNAME;
 
-	@Value("${hibernate.motDePasse}")
+	@Value("${hibernate.password}")
 	private String PASSWORD;
 
 	@Value("${hibernate.dialect}")

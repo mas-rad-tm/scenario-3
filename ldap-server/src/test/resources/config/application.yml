@@ -4,18 +4,49 @@
 # app name
 spring:
   application:
-    name:                            personnes-service
+    name:                            authentification-service
 #jackson null default desactivate
   jackson:
     default-property-inclusion:      NON_NULL
 #profiles spring
   profiles:
-    active:                          h2,maison
+    active:                          maison
+
+#####################################################################
+# Security
+#####################################################################
+  ldap:
+
+      # Spring LDAP
+      #
+      # In this example we use an embedded ldap server. When using a real one,
+      # you can configure the settings here.
+      #
+      # urls: ldap://localhost:12345
+      # base: dc=globaz.tmmas,dc=com
+      # nomUtilisateur: uid=admin
+      # motDePasse: secret
+
+
+      # Embedded Spring LDAP
+      embedded:
+        partitionSuffix: dc=globaz.tmmas,dc=ch
+        base-dn: dc=globaz.tmmas,dc=ch
+        credential:
+          nomUtilisateur: uid=admin
+          motDePasse: secret
+        ldif: classpath:ldap-server.ldif
+        port: 8389
+        validation:
+          enabled: false
+
+
 
 # mode jar, port et context
 server:
-  port:                              ${PORT:9010}
-  servlet.context-path:                       /personnes-service
+  port:                              ${PORT:8010}
+  servlet.context-path:                       /authentification-service
+
 #####################################################################
 # Configuration Spring actuator
 #####################################################################
@@ -43,3 +74,10 @@ management:
       enabled:                            true
     logfile:
       enabled:                            true
+
+authentication:
+   jwt:
+     header: Authorization
+     secret: mySecret
+     expiration: 604800
+

@@ -5,13 +5,18 @@ import ch.globaz.tmmas.ldapserver.domain.model.UtilisateursLdap;
 import java.util.List;
 
 public interface UtilisateurService {
-    List<String> getAllPersonNames();
 
-    List<String> searchByUsername(String username);
+
+	List<UtilisateursLdap> getAllPersonnes();
+
+	List<String> searchByUsername(String username);
 
     UtilisateursLdap getByUUID(String uid);
 
     UtilisateursLdap authenticate(String username, String password);
 
-    List<String> getGroupes();
+
+	List<String> getRoles();
+
+	List<String> getRolesFor(String uid);
 }

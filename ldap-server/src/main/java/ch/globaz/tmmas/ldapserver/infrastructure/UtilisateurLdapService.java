@@ -4,11 +4,13 @@ import ch.globaz.tmmas.ldapserver.domain.UtilisateurService;
 import ch.globaz.tmmas.ldapserver.domain.model.UtilisateursLdap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.ldap.AuthenticationException;
 import org.springframework.ldap.core.AttributesMapper;
 import org.springframework.ldap.core.ContextSource;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
 import java.util.List;
@@ -26,18 +28,27 @@ public class UtilisateurLdapService implements UtilisateurService {
     @Autowired
     private LdapTemplate ldapTemplate;
 
+
+
     /**
      * Retourne la liste des utilisateurs de l'AD
-     * @return la liste des noms des personnes (cn)
+     * @return la liste des utilisateurs AD
      */
     @Override
-    public List<String> getAllPersonNames() {
+    public List<UtilisateursLdap> getAllPersonnes() {
         return ldapTemplate.search(
                 query().where("objectclass").is("person"),
-                new AttributesMapper<String>() {
-                    public String mapFromAttributes(Attributes attrs)
+                new AttributesMapper<UtilisateursLdap>() {
+                    public UtilisateursLdap mapFromAttributes(Attributes attrs)
                             throws NamingException {
-                        return (String) attrs.get("cn").get();
+
+                        String uid = (String) attrs.get("uid").get();
+                        String prenom = ((String) attrs.get("cn").get()).split(" ")[0];
+                        String nom = ((String) attrs.get("cn").get()).split(" ")[1];
+
+                        UtilisateursLdap user = new UtilisateursLdap(uid,nom, prenom,null);
+
+                        return user;
                     }
                 });
     }
@@ -57,6 +68,11 @@ public class UtilisateurLdapService implements UtilisateurService {
                         .get());
     }
 
+    /**
+     * Retourne un utilisateur par son uid
+     * @param uid l'uid de l'utilisateur
+     * @return une instance de {@link UtilisateursLdap}
+     */
     @Override
     public UtilisateursLdap getByUUID(final String uid) {
 
@@ -65,47 +81,47 @@ public class UtilisateurLdapService implements UtilisateurService {
                 "ou=utilisateurs, dc=globaz.tmmas, dc=ch",
                 "uid=" + uid,
                 (AttributesMapper<UtilisateursLdap>) attrs -> {
-                    System.out.println(attrs);
-                    System.out.println(attrs.get("userpassword"));
-                    System.out.println(attrs.get("entryDN").get(0));
-                    System.out.println(attrs.get("uid"));
 
+                    String userId = (String) attrs.get("uid").get();
+                    String prenom = ((String) attrs.get("cn").get()).split(" ")[0];
+                    String nom = ((String) attrs.get("cn").get()).split(" ")[1];
+                    List<String> roles = getRolesFor(uid);
 
-
-                    return new UtilisateursLdap((String)attrs.get("uid").get(),(String)attrs.get("userpassword").get().toString());
+                    return new UtilisateursLdap(userId,nom,prenom,roles);
 
                 });
 
         return users.get(0);
-/**
- return ldapTemplate.search(
- "ou=utilisateurs, dc=globaz.tmmas, dc=ch",
- "uid=" + nomUtilisateur,
- (AttributesMapper<String>) attrs -> (String) attrs
- .get("cn")
- .get());
- */
     }
 
     @Override
     public UtilisateursLdap authenticate(final String username, final String password) {
 
-        /**
-         Filter filter = new EqualsFilter("uid", nomUtilisateur);
+        UtilisateursLdap utilisateur;
 
-         boolean authed = ldapTemplate.authenticate("dc=globaz.tmmas, dc=ch",
-         filter.encode(),
-         motDePasse);
-         */
+        try{
+            contextSource.getContext("uid=" + username + ",ou=utilisateurs," + env.getRequiredProperty
+                    ("spring.ldap" +
+                            ".embedded.partitionSuffix"), password);
 
+            utilisateur = getByUUID(username);
+        }catch(AuthenticationException ex){
+            throw ex;
+        }
 
+        return utilisateur;
+    }
 
-        //System.out.println("Auth:" + authed);
-
-        contextSource.getContext("uid=" + username + ",ou=utilisateurs," + env.getRequiredProperty("spring.ldap" +
-                ".embedded.partitionSuffix"), password);
-
-        return new UtilisateursLdap(username, password);
+    @Override
+    public List<String> getRoles() {
+        return ldapTemplate.search(
+                query().base("ou=roles,dc=globaz.tmmas,dc=ch"),
+                new AttributesMapper<String>() {
+                    public String mapFromAttributes(Attributes attrs)
+                            throws NamingException {
+                        return (String) attrs.get("cn").get();
+                    }
+                });
     }
 
     /**
@@ -113,11 +129,11 @@ public class UtilisateurLdapService implements UtilisateurService {
      * @return list of person names
      */
     @Override
-    public List<String> getGroupes() {
-
+    public List<String> getRolesFor(String uid) {
 
         return ldapTemplate.search(
-                query().base("ou=groupes,dc=globaz.tmmas,dc=ch").where("uniqueMember").is("uid=pic,ou=utilisateurs,dc=globaz.tmmas,dc=ch"),
+                query().base("ou=roles,dc=globaz.tmmas,dc=ch").where("uniqueMember").is("uid=" + uid +
+                        ",ou=utilisateurs,dc=globaz.tmmas,dc=ch"),
                 new AttributesMapper<String>() {
                     public String mapFromAttributes(Attributes attrs)
                             throws NamingException {
