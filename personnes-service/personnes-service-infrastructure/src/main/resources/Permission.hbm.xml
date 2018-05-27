@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field">
+
+    <class name="ch.globaz.tmmas.personnesservice.infrastructure.security.Permission" table="permission" schema="personnes" mutable="true">
+
+        <id name="id" column="id">
+            <generator class="org.hibernate.id.IdentityGenerator"/>
+        </id>
+
+
+        <property name="name" column="name" not-null="true"/>
+
+        <set name="roles" table="roles_permissions" schema="personnes"
+             lazy="false" fetch="select" cascade="all" >
+            <key>
+                <column name="permission_id" not-null="true" />
+            </key>
+            <many-to-many entity-name="ch.globaz.tmmas.personnesservice.infrastructure.security.Role">
+                <column name="role_id" not-null="true" />
+            </many-to-many>
+        </set>
+
+
+
+
+    </class>
+
+</hibernate-mapping>

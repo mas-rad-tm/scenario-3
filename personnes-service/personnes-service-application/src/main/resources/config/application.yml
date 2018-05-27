@@ -43,3 +43,10 @@ management:
       enabled:                            true
     logfile:
       enabled:                            true
+
+########## Config jwt
+mas.security.jwt:
+  tokenExpirationTime: 1 #15 # Number of minutes
+  refreshTokenExpTime: 3 #60 # Minutes
+  tokenIssuer: sebooom.com
+  tokenSigningKey: xm8EV6Hy5RMFK4EEACIDAwQus

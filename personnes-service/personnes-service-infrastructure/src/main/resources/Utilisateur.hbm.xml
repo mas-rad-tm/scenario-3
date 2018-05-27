@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field">
+
+    <class name="ch.globaz.tmmas.personnesservice.infrastructure.security.Utilisateur" table="utilisateur" schema="personnes" mutable="true">
+
+        <id name="id" column="id">
+            <generator class="org.hibernate.id.IdentityGenerator"/>
+        </id>
+
+        <property name="prenom" column="prenom" not-null="false"/>
+
+        <property name="nom" column="nom" not-null="false"/>
+
+        <property name="email" column="email" not-null="false"/>
+
+        <property name="nomUtilisateur" column="nomUtilisateur" not-null="false"/>
+
+
+        <property name="motDePasse" column="motDePasse" length="60" not-null="false"/>
+
+        <property name="enabled" column="enabled" not-null="false" />
+
+
+        <set name="roles" table="utilisateurs_roles" schema="personnes"
+             lazy="false" fetch="select" cascade="all" >
+            <key>
+                <column name="utilisateur_id" not-null="true" />
+            </key>
+            <many-to-many entity-name="ch.globaz.tmmas.personnesservice.infrastructure.security.Role">
+                <column name="role_id" not-null="true" />
+            </many-to-many>
+        </set>
+
+
+
+    </class>
+
+</hibernate-mapping>

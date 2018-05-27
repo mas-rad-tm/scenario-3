@@ -37,6 +37,7 @@
         <hibernate-validator.version>5.3.6.Final</hibernate-validator.version>
         <jackson-databind.version>2.8.10</jackson-databind.version>
         <guava.version>24.1-jre</guava.version>
+        <jjwt.version>0.9.0</jjwt.version>
 
         <!-- dépendances de build et maven plugin -->
         <maven-compiler.version>3.7.0</maven-compiler.version>
@@ -190,6 +191,15 @@
                 <groupId>net.logstash.logback</groupId>
                 <artifactId>logstash-logback-encoder</artifactId>
                 <version>${logback.encoder.version}</version>
+            </dependency>
+
+            <!-- ********************************* -->
+            <!-- ********  Securité   ************ -->
+            <!-- ********************************* -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
             </dependency>
 
 

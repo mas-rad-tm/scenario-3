@@ -1,12 +1,10 @@
-package ch.globaz.tmmas.personnesservice.application.api.web.resources.common;
+package ch.globaz.tmmas.ldapserver.application.api.resource;
 
-import ch.globaz.tmmas.personnesservice.application.common.ErrorCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,11 +13,8 @@ import java.util.List;
 @Getter
 public class ErrorResponseResource {
 
-	private final HttpStatus status;
-	private final String message;
-	private final Date timestamp;
-	private ErrorCode errorCode;
-
+	private HttpStatus status;
+	private String message;
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private List<String> erreurs;
 
@@ -27,12 +22,6 @@ public class ErrorResponseResource {
 		this.erreurs = erreurs;
 		this.message = message;
 		this.status = status;
-		this.timestamp = new Date();
-	}
-
-	public ErrorResponseResource(HttpStatus status, String message, String erreur, ErrorCode errorCode) {
-		this(status,message, Arrays.asList(erreur));
-		this.errorCode = errorCode;
 	}
 
 	public ErrorResponseResource(HttpStatus status, String message, String erreur) {
@@ -42,7 +31,6 @@ public class ErrorResponseResource {
 	public ErrorResponseResource(HttpStatus status, String message) {
 		this.message = message;
 		this.status = status;
-		this.timestamp = new Date();
 	}
 
 }

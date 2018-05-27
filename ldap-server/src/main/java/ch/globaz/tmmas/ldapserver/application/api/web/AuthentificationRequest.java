@@ -2,9 +2,11 @@ package ch.globaz.tmmas.ldapserver.application.api.web;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class AuthentificationRequest {
 
 	private String nomUtilisateur;

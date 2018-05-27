@@ -1,7 +1,10 @@
 package ch.globaz.tmmas.ldapserver.infrastructure;
 
+import ch.globaz.tmmas.ldapserver.application.api.web.AuthentificationController;
 import ch.globaz.tmmas.ldapserver.domain.UtilisateurService;
 import ch.globaz.tmmas.ldapserver.domain.model.UtilisateursLdap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.ldap.AuthenticationException;
@@ -19,6 +22,9 @@ import static org.springframework.ldap.query.LdapQueryBuilder.query;
 
 @Component
 public class UtilisateurLdapService implements UtilisateurService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UtilisateurLdapService.class);
+
     @Autowired
     private Environment env;
 
@@ -36,6 +42,8 @@ public class UtilisateurLdapService implements UtilisateurService {
      */
     @Override
     public List<UtilisateursLdap> getAllPersonnes() {
+        LOGGER.info("{}#getAllPersonnes",this.getClass().getName());
+
         return ldapTemplate.search(
                 query().where("objectclass").is("person"),
                 new AttributesMapper<UtilisateursLdap>() {
@@ -60,6 +68,9 @@ public class UtilisateurLdapService implements UtilisateurService {
      */
     @Override
     public List<String> searchByUsername(final String username) {
+        LOGGER.info("{}#searchByUserName, userName: {}",this.getClass().getName(),username);
+
+
         return ldapTemplate.search(
                 "ou=utilisateurs, dc=globaz.tmmas, dc=ch",
                 "uid=" + username,
@@ -75,6 +86,8 @@ public class UtilisateurLdapService implements UtilisateurService {
      */
     @Override
     public UtilisateursLdap getByUUID(final String uid) {
+
+        LOGGER.info("{}#getByUUID, uid: {}",this.getClass().getName(),uid);
 
 
         List<UtilisateursLdap> users = ldapTemplate.search(
@@ -97,6 +110,9 @@ public class UtilisateurLdapService implements UtilisateurService {
     @Override
     public UtilisateursLdap authenticate(final String username, final String password) {
 
+        LOGGER.info("{}#authenticate, username: {}, password: {}",this.getClass().getName(),username,password);
+
+
         UtilisateursLdap utilisateur;
 
         try{
@@ -105,7 +121,12 @@ public class UtilisateurLdapService implements UtilisateurService {
                             ".embedded.partitionSuffix"), password);
 
             utilisateur = getByUUID(username);
+
+            LOGGER.info("{}#authenticate, utilisateur authenticated, utilisateur: {}",this.getClass().getName(),utilisateur);
+
         }catch(AuthenticationException ex){
+            LOGGER.error("{}#authenticate, uAuthenticatedException occurs, ex: {}",this.getClass().getName(),ex.getMessage());
+
             throw ex;
         }
 
@@ -114,6 +135,9 @@ public class UtilisateurLdapService implements UtilisateurService {
 
     @Override
     public List<String> getRoles() {
+        LOGGER.info("{}#getRoles",this.getClass().getName());
+
+
         return ldapTemplate.search(
                 query().base("ou=roles,dc=globaz.tmmas,dc=ch"),
                 new AttributesMapper<String>() {
@@ -130,6 +154,8 @@ public class UtilisateurLdapService implements UtilisateurService {
      */
     @Override
     public List<String> getRolesFor(String uid) {
+
+        LOGGER.info("{}#getRolesFor, uid: {}",this.getClass().getName(),uid);
 
         return ldapTemplate.search(
                 query().base("ou=roles,dc=globaz.tmmas,dc=ch").where("uniqueMember").is("uid=" + uid +

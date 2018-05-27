@@ -19,8 +19,11 @@ class MdcTaskDecorator implements TaskDecorator {
 			try{
 				//async thread contexte
 				// restauration du contexte mdc du web
-				MDC.setContextMap(contexttMap);
-				runnable.run();
+				if(contexttMap != null){
+					MDC.setContextMap(contexttMap);
+					runnable.run();
+				}
+
 			}
 			finally{
 				MDC.clear();

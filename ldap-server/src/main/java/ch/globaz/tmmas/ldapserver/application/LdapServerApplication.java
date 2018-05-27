@@ -67,9 +67,6 @@ public class LdapServerApplication {
     private  void logInitApplicationContext () {
         Environment env = appContext.getEnvironment();
 
-
-
-
         ResourceProperties prop = new ResourceProperties();
         String[] staticLocation = prop.getStaticLocations();
         LOGGER.info("***********************************************************************");

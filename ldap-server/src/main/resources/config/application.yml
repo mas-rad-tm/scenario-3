@@ -4,7 +4,7 @@
 # app name
 spring:
   application:
-    name:                            authentification-service
+    name:                            ldap-server
 #jackson null default desactivate
   jackson:
     default-property-inclusion:      NON_NULL
@@ -45,7 +45,7 @@ spring:
 # mode jar, port et context
 server:
   port:                              ${PORT:8010}
-  servlet.context-path:                       /authentification-service
+  servlet.context-path:                       /ldap-server
 
 #####################################################################
 # Configuration Spring actuator

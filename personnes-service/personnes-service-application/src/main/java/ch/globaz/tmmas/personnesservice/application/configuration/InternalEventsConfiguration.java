@@ -1,10 +1,12 @@
 package ch.globaz.tmmas.personnesservice.application.configuration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ApplicationEventMulticaster;
 import org.springframework.context.event.SimpleApplicationEventMulticaster;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class InternalEventsConfiguration {
@@ -20,6 +22,13 @@ public class InternalEventsConfiguration {
 
 		eventMulticaster.setTaskExecutor(executor);
 		return eventMulticaster;
+	}
+
+	@Bean
+	RestTemplate restTemplate() {
+		RestTemplate restTemplate = new RestTemplate();
+
+		return restTemplate;
 	}
 
 
