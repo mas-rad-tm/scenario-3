@@ -9,8 +9,8 @@ import java.util.Collection;
 
 @Getter
 @Setter
-@EqualsAndHashCode
-@ToString(exclude = "users")
+@EqualsAndHashCode(exclude = {"users","permissions"})
+@ToString(exclude = {"users","permissions"})
 public class Role {
 
 
@@ -21,15 +21,15 @@ public class Role {
 
     private Collection<Permission> permissions;
 
-    private String name;
+    private TypeRole typeRole;
 
     public Role() {
         super();
     }
 
-    public Role(final String name) {
+    public Role(final TypeRole typeRole) {
         super();
-        this.name = name;
+        this.typeRole = typeRole;
     }
 
 

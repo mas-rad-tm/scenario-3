@@ -4,6 +4,7 @@ import lombok.ToString;
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -14,9 +15,9 @@ import java.util.List;
 public class ContexteUtilisateur {
 
     private final String username;
-    private final List<GrantedAuthority> authorities;
+    private final Collection<GrantedAuthority> authorities;
 
-    private ContexteUtilisateur(String username, List<GrantedAuthority> authorities) {
+    private ContexteUtilisateur(String username, Collection<GrantedAuthority> authorities) {
         this.username = username;
         this.authorities = authorities;
     }
@@ -26,11 +27,12 @@ public class ContexteUtilisateur {
         return new ContexteUtilisateur(username, authorities);
     }
 
+
     public String getUsername() {
         return username;
     }
 
-    public List<GrantedAuthority> getAuthorities() {
+    public Collection<GrantedAuthority> getAuthorities() {
         return authorities;
     }
 }

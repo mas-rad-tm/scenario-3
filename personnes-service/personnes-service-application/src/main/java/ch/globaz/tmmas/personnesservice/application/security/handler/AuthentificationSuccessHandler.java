@@ -28,12 +28,12 @@ import java.util.Map;
  *         Aug 3, 2016
  */
 @Component
-public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+public class AuthentificationSuccessHandler implements AuthenticationSuccessHandler {
     private final ObjectMapper mapper;
     private final JwtTokenFactory tokenFactory;
 
     @Autowired
-    public JwtAuthenticationSuccessHandler(final ObjectMapper mapper, final JwtTokenFactory tokenFactory) {
+    public AuthentificationSuccessHandler(final ObjectMapper mapper, final JwtTokenFactory tokenFactory) {
         this.mapper = mapper;
         this.tokenFactory = tokenFactory;
     }

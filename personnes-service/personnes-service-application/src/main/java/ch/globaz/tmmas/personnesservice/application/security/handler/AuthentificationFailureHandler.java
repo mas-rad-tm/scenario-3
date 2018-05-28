@@ -21,12 +21,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-public class JwtAuthentificationFailureHandler implements AuthenticationFailureHandler{
+public class AuthentificationFailureHandler implements AuthenticationFailureHandler{
 
     private final ObjectMapper mapper;
 
     @Autowired
-    public JwtAuthentificationFailureHandler(ObjectMapper mapper) {
+    public AuthentificationFailureHandler(ObjectMapper mapper) {
         this.mapper = mapper;
     }
 

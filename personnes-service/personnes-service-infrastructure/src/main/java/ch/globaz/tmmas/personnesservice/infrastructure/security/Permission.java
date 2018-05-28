@@ -17,7 +17,7 @@ public class Permission implements GrantedAuthority {
 
     private Long id;
 
-    private String name;
+    private TypePermission typePermission;
 
     private Collection<Role> roles;
 
@@ -25,13 +25,13 @@ public class Permission implements GrantedAuthority {
         super();
     }
 
-    public Permission(final String name) {
+    public Permission(final TypePermission typePermission) {
         super();
-        this.name = name;
+        this.typePermission = typePermission;
     }
 
     @Override
     public String getAuthority() {
-        return this.name;
+        return this.typePermission.nom();
     }
 }

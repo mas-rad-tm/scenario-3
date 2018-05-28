@@ -12,9 +12,15 @@
         </id>
 
 
-        <property name="name" column="name" not-null="true"/>
+        <property name="typePermission" column="name">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">ch.globaz.tmmas.personnesservice.infrastructure.security.TypePermission</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
 
-        <set name="roles" table="roles_permissions" schema="personnes"
+
+        <set name="roles" table="permissions_roles" schema="personnes"
              lazy="false" fetch="select" cascade="all" >
             <key>
                 <column name="permission_id" not-null="true" />

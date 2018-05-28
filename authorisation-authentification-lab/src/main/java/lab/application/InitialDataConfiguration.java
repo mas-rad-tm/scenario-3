@@ -111,6 +111,8 @@ public class InitialDataConfiguration implements
         return permission;
     }
 
+
+
     @Transactional
     Role createRoleIfNotFound(
             String name, Collection<Permission> permissions) {

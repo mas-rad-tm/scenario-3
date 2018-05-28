@@ -71,7 +71,7 @@ public class Utilisateur implements UserDetails{
         for (Role role: this.getRoles()) {
             //authorities.add(new SimpleGrantedAuthority(role.getName()));
             role.getPermissions().stream()
-                    .map(p -> new SimpleGrantedAuthority(p.getName()))
+                    .map(p -> new SimpleGrantedAuthority(p.getTypePermission().nom()))
                     .forEach(authorities::add);
         }
 
@@ -85,7 +85,7 @@ public class Utilisateur implements UserDetails{
         for (Role role: this.getRoles()) {
             //authorities.add(new SimpleGrantedAuthority(role.getName()));
             role.getPermissions().stream()
-                    .map(p -> new SimpleGrantedAuthority(p.getName()))
+                    .map(p -> new SimpleGrantedAuthority(p.getTypePermission().nom()))
                     .forEach(authorities::add);
         }
 

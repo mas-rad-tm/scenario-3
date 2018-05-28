@@ -11,7 +11,12 @@
             <generator class="org.hibernate.id.IdentityGenerator"/>
         </id>
 
-        <property name="name" column="name" not-null="true"/>
+        <property name="typeRole" column="name">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">ch.globaz.tmmas.personnesservice.infrastructure.security.TypeRole</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
 
         <set name="users" table="utilisateurs_roles" schema="personnes"
              lazy="false" fetch="select" cascade="all" >

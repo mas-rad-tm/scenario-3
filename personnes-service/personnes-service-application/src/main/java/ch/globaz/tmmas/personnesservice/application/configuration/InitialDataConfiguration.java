@@ -3,10 +3,7 @@ package ch.globaz.tmmas.personnesservice.application.configuration;
 import ch.globaz.tmmas.personnesservice.infrastructure.repository.PermissionsHibernateRepository;
 import ch.globaz.tmmas.personnesservice.infrastructure.repository.RoleHibernateRepository;
 import ch.globaz.tmmas.personnesservice.infrastructure.repository.UtilisateurHibernateRepository;
-import ch.globaz.tmmas.personnesservice.infrastructure.security.Permission;
-import ch.globaz.tmmas.personnesservice.infrastructure.security.Role;
-import ch.globaz.tmmas.personnesservice.infrastructure.security.Roles;
-import ch.globaz.tmmas.personnesservice.infrastructure.security.Utilisateur;
+import ch.globaz.tmmas.personnesservice.infrastructure.security.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.Permissions;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Classe insérant des données initiales de bases
@@ -45,6 +42,7 @@ public class InitialDataConfiguration implements
 
     private static final Logger logger = LoggerFactory.getLogger(InitialDataConfiguration.class);
 
+    List<Permission> permissions = new ArrayList<>();
 
 
 
@@ -58,52 +56,92 @@ public class InitialDataConfiguration implements
             return;
         }
 
-        logger.info("Création des permissions");
-        Permission readPermission = createPermissionsIfNotFound("READ_PERMISSION");
-        Permission writePermission = createPermissionsIfNotFound("WRITE_PERMISSION");
-
-        logger.info("Création des roles");
-        Set<Permission> adminPermissions = new HashSet<>();
-        adminPermissions.add(readPermission);
-        adminPermissions.add(writePermission);
-
-        Set<Permission> readPermissions = new HashSet<>();
-        readPermissions.add(readPermission);
+        logger.info("****** Création des permissions");
 
 
-        createRoleIfNotFound(Roles.ADMIN.nom, adminPermissions);
-        createRoleIfNotFound(Roles.USER.nom, readPermissions);
 
-        Role adminRole = roleRepository.findByName(Roles.ADMIN.nom).get();
+        getInitialPermissions().stream().forEach(permission -> {
+            createPermissionsIfNotFound(permission);
+            permissions.add(permission);
+            logger.info("Permission créé : {}", permission);
+        });
+
+
+        logger.info("****** Création des roles");
+
+        Role roleResponsable = new Role(TypeRole.RESPONSABLE);
+
+        Set<Permission> roleResponsablePermissions = new HashSet<Permission>();
+        roleResponsablePermissions.add(getPermissionFor(TypePermission.CREATE_ADRESSE));
+        roleResponsablePermissions.add(getPermissionFor(TypePermission.READ_ADRESSE));
+        roleResponsablePermissions.add(getPermissionFor(TypePermission.CREATE_PERSONNE));
+        roleResponsablePermissions.add(getPermissionFor(TypePermission.READ_PERSONNE));
+
+        createRoleIfNotFound(roleResponsable,roleResponsablePermissions);
+        logger.info("Role créé : {}", roleResponsable);
+
+
+        Role roleGestionnaire = new Role(TypeRole.GESTIONNAIRE);
+
+        Set<Permission> roleGestionnairePermissions = new HashSet<Permission>();
+        roleGestionnairePermissions.add(getPermissionFor(TypePermission.CREATE_ADRESSE));
+        roleGestionnairePermissions.add(getPermissionFor(TypePermission.READ_ADRESSE));
+        roleGestionnairePermissions.add(getPermissionFor(TypePermission.READ_PERSONNE));
+
+        createRoleIfNotFound(roleGestionnaire,roleResponsablePermissions);
+        logger.info("Role créé : {}", roleGestionnaire);
+
+
+        Role roleStagiaire = new Role(TypeRole.STAGIAIRE);
+
+        Set<Permission> roleStagiairePermissions = new HashSet<Permission>();
+        roleStagiairePermissions.add(getPermissionFor(TypePermission.READ_PERSONNE));
+
+        createRoleIfNotFound(roleStagiaire,roleStagiairePermissions);
+        logger.info("Role créé : {}", roleStagiaire);
+
+
 
         logger.info("Création des utilisateurs");
-        Utilisateur user = new Utilisateur();
-        user.setNom("Chèvre");
-        user.setPrenom("Sébastien");
-        user.setNomUtilisateur("sce");
-        user.setMotDePasse(passwordEncoder.encode("scePass"));
-        user.setEmail("sce@sce.com");
+        Utilisateur sce = new Utilisateur();
+        sce.setNom("Chèvre");
+        sce.setPrenom("Sébastien");
+        sce.setNomUtilisateur("sce");
+        sce.setMotDePasse(passwordEncoder.encode("scePass"));
+        sce.setEmail("sce@sce.com");
 
         HashSet roles = new HashSet();
-        roles.add(adminRole);
-        user.setRoles(roles);
-        user.setEnabled(true);
-        utilisateurRepository.save(user);
+        roles.add(roleResponsable);
+        sce.setRoles(roles);
+        sce.setEnabled(true);
+        utilisateurRepository.save(sce);
 
-        Role userRole = roleRepository.findByName(Roles.USER.nom).get();
 
-        Utilisateur user2 = new Utilisateur();
-        user2.setNom("Mickey");
-        user2.setPrenom("Mouse");
-        user2.setNomUtilisateur("mmo");
-        user2.setMotDePasse(passwordEncoder.encode("mmoPass"));
-        user2.setEmail("mmo@sce.com");
+        Utilisateur mmo = new Utilisateur();
+        mmo.setNom("Mickey");
+        mmo.setPrenom("Mouse");
+        mmo.setNomUtilisateur("mmo");
+        mmo.setMotDePasse(passwordEncoder.encode("mmoPass"));
+        mmo.setEmail("mmo@sce.com");
 
         roles = new HashSet();
-        roles.add(userRole);
-        user2.setRoles(roles);
-        user2.setEnabled(true);
-        utilisateurRepository.save(user2);
+        roles.add(roleGestionnaire);
+        mmo.setRoles(roles);
+        mmo.setEnabled(true);
+        utilisateurRepository.save(mmo);
+
+        Utilisateur pic = new Utilisateur();
+        pic.setNom("Picsou");
+        pic.setPrenom("Duck");
+        pic.setNomUtilisateur("pic");
+        pic.setMotDePasse(passwordEncoder.encode("mmoPass"));
+        pic.setEmail("mmo@sce.com");
+
+        roles = new HashSet();
+        roles.add(roleStagiaire);
+        pic.setRoles(roles);
+        pic.setEnabled(true);
+        utilisateurRepository.save(pic);
 
         logger.info("Data sample successfully inserted");
 
@@ -111,13 +149,27 @@ public class InitialDataConfiguration implements
 
     }
 
-    @Transactional
-    Permission createPermissionsIfNotFound(String name) {
+    List<Permission> getInitialPermissions(){
+        return Arrays.asList(TypePermission.values()).stream().map(typePermission -> {
+            return new Permission(typePermission);
+        }).collect(Collectors.toList());
+    }
 
-        Permission permission = permissionsRepository.findByName(name).orElseGet(() -> {
-            Permission p = new Permission(name);
-            permissionsRepository.save(p);
-            return p;
+    Permission getPermissionFor(TypePermission type){
+
+        return permissions.stream().filter(permission -> {
+            return permission.getTypePermission().equals(type);
+        }).findFirst().get();
+
+    }
+
+
+    @Transactional
+    Permission createPermissionsIfNotFound(Permission permission) {
+
+        permissionsRepository.findByTypePermission(permission.getTypePermission()).orElseGet(() -> {
+             permissionsRepository.save(permission);
+            return permission;
         });
 
 
@@ -125,13 +177,12 @@ public class InitialDataConfiguration implements
     }
 
     @Transactional
-    Role createRoleIfNotFound(String name, Set<Permission> permissions) {
+    Role createRoleIfNotFound(Role role, Set<Permission> permissions) {
 
-        Role role = roleRepository.findByName(name).orElseGet(()->{
-            Role r = new Role(name);
-            r.setPermissions(permissions);
-            roleRepository.save(r);
-            return r;
+        roleRepository.findByRoleType(role.getTypeRole()).orElseGet(()->{
+            role.setPermissions(permissions);
+            roleRepository.save(role);
+            return role;
         });
 
         return role;
