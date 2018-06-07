@@ -49,17 +49,14 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
         String username = (String) authentication.getPrincipal();
         String password = (String) authentication.getCredentials();
 
+        //Authentification via la provider
         UtilisateurLdapDto utilisateurLdap = authentificationService.authentifie(new LoginDto(username,password)).orElseThrow(
-                () -> new UsernameNotFoundException("Utilisateur inexistant: " + username));
+                () -> new UsernameNotFoundException("Problème lors de l'authentification de l'utilisateur "
+                        + username));
 
 
-
-        /**if (!passwordEncoder.matches(password, utilisateur.getPassword())) {
-            throw new BadCredentialsException("Authentication Failed. Username or Password not valid.");
-        }*/
-
-        if (utilisateurLdap.getRoles() == null) throw new InsufficientAuthenticationException("User has no roles assigned");
-
+        if (utilisateurLdap.getRoles() == null)
+            throw new InsufficientAuthenticationException("User has no roles assigned");
 
         logger.info("Utilisateur before roles from ad: {}",utilisateurLdap);
 

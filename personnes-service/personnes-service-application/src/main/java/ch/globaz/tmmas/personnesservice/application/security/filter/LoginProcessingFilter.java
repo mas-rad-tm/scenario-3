@@ -6,9 +6,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,7 +29,8 @@ import java.io.IOException;
  *  de login défini)
  */
 public class LoginProcessingFilter extends AbstractAuthenticationProcessingFilter {
-    private static Logger logger = LoggerFactory.getLogger(LoginProcessingFilter.class);
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginProcessingFilter.class);
 
     private final AuthenticationSuccessHandler successHandler;
     private final AuthenticationFailureHandler failureHandler;
@@ -35,11 +38,12 @@ public class LoginProcessingFilter extends AbstractAuthenticationProcessingFilte
     private final ObjectMapper objectMapper;
 
     public LoginProcessingFilter(String defaultProcessUrl, AuthenticationSuccessHandler successHandler,
-                                 AuthenticationFailureHandler failureHandler, ObjectMapper mapper) {
+                                 AuthenticationFailureHandler failureHandler, ObjectMapper mapper, ApplicationEventPublisher eventPublisher) {
         super(defaultProcessUrl);
         this.successHandler = successHandler;
         this.failureHandler = failureHandler;
         this.objectMapper = mapper;
+        this.setApplicationEventPublisher(eventPublisher);
     }
 
     @Override
@@ -47,7 +51,7 @@ public class LoginProcessingFilter extends AbstractAuthenticationProcessingFilte
             throws AuthenticationException, IOException, ServletException {
 
         if (!HttpMethod.POST.name().equals(request.getMethod())) {
-            logger.debug("Authentication method not supported. Request method: " + request.getMethod());
+            LOGGER.debug("Authentication method not supported. Request method: " + request.getMethod());
 
             throw new AuthentificationMethodNotSupportedException("Authentication method not supported");
         }
@@ -62,18 +66,21 @@ public class LoginProcessingFilter extends AbstractAuthenticationProcessingFilte
                 = new UsernamePasswordAuthenticationToken(loginRequest.getNomUtilisateur(),
                 loginRequest.getMotDePasse());
 
+
         return this.getAuthenticationManager().authenticate(token);
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
+        LOGGER.info("**** Successfull Authentification ****");
         successHandler.onAuthenticationSuccess(request, response, authResult);
     }
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                               AuthenticationException failed) throws IOException, ServletException {
+        LOGGER.info("**** Unsuccessfull Authentification ****");
         SecurityContextHolder.clearContext();
         failureHandler.onAuthenticationFailure(request, response, failed);
     }

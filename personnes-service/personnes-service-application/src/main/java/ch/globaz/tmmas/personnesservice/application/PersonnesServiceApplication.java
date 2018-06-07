@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -26,8 +27,9 @@ import java.util.stream.Collectors;
  */
 
 @SpringBootApplication
+@EnableAsync
 @EnableAutoConfiguration(exclude = HibernateJpaAutoConfiguration.class)
-@ComponentScan(basePackages = {"ch.globaz.tmmas.personnesservice"})
+@ComponentScan(basePackages = {"ch.globaz.tmmas.personnesservice","ch.globaz.tmmas.personnesservice.application.security.audit"})
 public class PersonnesServiceApplication {
 
 

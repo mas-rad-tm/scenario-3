@@ -10,9 +10,12 @@ import ch.globaz.tmmas.personnesservice.application.security.provider.JwtAuthent
 import ch.globaz.tmmas.personnesservice.application.security.provider.LoginAuthenticationProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationEventPublisher;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -42,7 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
     private static final String AUTHENTICATION_URL = "/login";
-    private static final String API_ROOT_URL = "/**";
+    private static final String API_ROOT_URL = "/personnes/**";
     public static final String AUTHENTICATION_HEADER_NAME = "Authorization";
 
 
@@ -63,6 +66,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private TokenExtractor tokenExtractor;
 
+    @Autowired
+    ApplicationEventPublisher authenticationEventPublisher;
 
 //    @Autowired
 //    public SecurityConfiguration(AuthenticationEntryPoint authenticationEntryPoint,ObjectMapper objectMapper,
@@ -76,11 +81,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //        this.loginAuthenticationProvider = loginAuthenticationProvider;
 //    }
 
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(loginAuthenticationProvider);
         auth.authenticationProvider(jwtAuthenticationProvider);
+       // auth.authenticationEventPublisher(authenticationEventPublisher);
+
     }
+
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         List<String> permitAllEndpointList = Arrays.asList(
@@ -95,7 +106,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 "/**/*.html",
                 "/**/*.css",
                 "/**/*.js",
-                "/h2/**"
+                "/h2/**",
+                "/actuator/**"
         );
 
         http
@@ -125,6 +137,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
 
+
     }
 
     /**
@@ -143,7 +156,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     private Filter buildLoginProcessingFilter(String loginEntryPoint) {
-        LoginProcessingFilter filter = new LoginProcessingFilter(loginEntryPoint, successHandler, failureHandler, objectMapper);
+        LoginProcessingFilter filter = new LoginProcessingFilter(loginEntryPoint, successHandler, failureHandler, objectMapper,authenticationEventPublisher);
         filter.setAuthenticationManager(this.authenticationManager);
         return filter;
     }

@@ -24,7 +24,9 @@ management:
 
 # configuration des endpoints
 management:
-  endpoint:
+  endpoints:
+    auditevents:
+      enabled: true
     hypermedia:
       enabled:                            true
     actuator:
@@ -43,10 +45,12 @@ management:
       enabled:                            true
     logfile:
       enabled:                            true
-
+    web:
+      exposure:
+        include: "*"
 ########## Config jwt
 mas.security.jwt:
-  tokenExpirationTime: 1 #15 # Number of minutes
-  refreshTokenExpTime: 3 #60 # Minutes
+  tokenExpirationTime: 10 #15 # Number of minutes
+  refreshTokenExpTime: 30 #60 # Minutes
   tokenIssuer: sebooom.com
   tokenSigningKey: xm8EV6Hy5RMFK4EEACIDAwQus

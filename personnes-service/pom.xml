@@ -137,6 +137,12 @@
                 <version>${hibernate.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-actuator</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
             <!-- pilote db2 type 4
             repo: interne globaz
             doc: http://www-01.ibm.com/support/docview.wss?uid=swg21363866 -->

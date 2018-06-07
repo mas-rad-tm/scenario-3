@@ -5,8 +5,10 @@ import ch.globaz.tmmas.personnesservice.application.security.jwt.JwtTokenFactory
 import ch.globaz.tmmas.personnesservice.application.security.model.ContexteUtilisateur;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -31,11 +33,13 @@ import java.util.Map;
 public class AuthentificationSuccessHandler implements AuthenticationSuccessHandler {
     private final ObjectMapper mapper;
     private final JwtTokenFactory tokenFactory;
+    //private final ApplicationEventPublisher eventPublisher;
 
     @Autowired
-    public AuthentificationSuccessHandler(final ObjectMapper mapper, final JwtTokenFactory tokenFactory) {
+    public AuthentificationSuccessHandler(final ObjectMapper mapper, final JwtTokenFactory tokenFactory, final ApplicationEventPublisher eventPublisher) {
         this.mapper = mapper;
         this.tokenFactory = tokenFactory;
+        //this.eventPublisher = eventPublisher;
     }
 
     @Override
@@ -54,7 +58,11 @@ public class AuthentificationSuccessHandler implements AuthenticationSuccessHand
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         mapper.writeValue(response.getWriter(), tokenMap);
 
-        clearAuthenticationAttributes(request);
+        //clearAuthenticationAttributes(request);
+
+        //this.eventPublisher.publishEvent(new InteractiveAuthenticationSuccessEvent(authentication, this.getClass()));
+
+
     }
 
     /**

@@ -25,13 +25,12 @@ public class AuthentificationLdapService implements AuthentificationService {
     @Override
     public Optional<UtilisateurLdapDto> authentifie(LoginDto dto) {
 
-        UtilisateurLdapDto udto = ldapAuthentificationClient.authentifie(dto);
+        Optional<UtilisateurLdapDto> udto = ldapAuthentificationClient.authentifie(dto);
 
-       /* Utilisateur u = new Utilisateur(1L,udto.getUid(),
-                udto.getRoles().stream().map(nomRole -> {
-                    return new Role(nomRole);
-                }).collect(Collectors.toSet()));
-*/
-        return Optional.of(udto);
+        if(udto.isPresent()){
+            return Optional.of(udto.get());
+        }
+
+        return Optional.empty();
     }
 }

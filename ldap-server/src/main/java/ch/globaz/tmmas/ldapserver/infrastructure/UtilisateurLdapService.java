@@ -110,7 +110,7 @@ public class UtilisateurLdapService implements UtilisateurService {
     @Override
     public UtilisateursLdap authenticate(final String username, final String password) {
 
-        LOGGER.info("{}#authenticate, username: {}, password: {}",this.getClass().getName(),username,password);
+        LOGGER.info("{}#authenticate, username: {}",this.getClass().getName(),username);
 
 
         UtilisateursLdap utilisateur;
@@ -125,7 +125,7 @@ public class UtilisateurLdapService implements UtilisateurService {
             LOGGER.info("{}#authenticate, utilisateur authenticated, utilisateur: {}",this.getClass().getName(),utilisateur);
 
         }catch(AuthenticationException ex){
-            LOGGER.error("{}#authenticate, uAuthenticatedException occurs, ex: {}",this.getClass().getName(),ex.getMessage());
+            LOGGER.error("{}#authenticate, {} occurs, ex: {}",this.getClass().getTypeName(),ex.getMessage());
 
             throw ex;
         }
