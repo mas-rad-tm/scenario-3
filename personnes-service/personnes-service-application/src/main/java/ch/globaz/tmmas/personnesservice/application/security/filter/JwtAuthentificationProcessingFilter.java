@@ -34,7 +34,6 @@ public class JwtAuthentificationProcessingFilter extends AbstractAuthenticationP
     private final TokenExtractor tokenExtractor;
 
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthentificationProcessingFilter.class);
-
     @Autowired
     public JwtAuthentificationProcessingFilter(AuthenticationFailureHandler failureHandler,
                                                TokenExtractor tokenExtractor, RequestMatcher matcher) {
