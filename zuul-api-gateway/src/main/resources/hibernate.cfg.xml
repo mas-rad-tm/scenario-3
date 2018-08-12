@@ -10,10 +10,10 @@
     <!-- Properties defined here are shared between test and production -->
     <property name="cache.provider_class">org.hibernate.cache.internal.NoCachingRegionFactory</property>
     
-    <mapping resource="Localite.hbm.xml" />
-    <mapping resource="Adresse.hbm.xml" />
-    <mapping resource="PersonneMorale.hbm.xml" />
-
+    <mapping resource="Permission.hbm.xml" />
+    <mapping resource="Role.hbm.xml" />
+    <mapping resource="Utilisateur.hbm.xml" />
+  
 
   </session-factory>
 

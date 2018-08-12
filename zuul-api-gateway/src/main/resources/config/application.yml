@@ -1,0 +1,51 @@
+spring:
+  profiles:
+    active: h2
+info:
+  component: Edge Server
+
+management:
+  security:
+    enabled: false
+
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+
+# Increase the Hystrix timeout to 60s (globally)
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+zuul:
+
+  prefix: /api/v1
+  routes:
+    personnes:
+      path: /personnes/**
+      url: http://localhost:9010/personnes-service
+
+
+ribbon:
+  eureka:
+   enabled: false
+
+
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.web: DEBUG
+########## Config jwt
+mas.security.jwt:
+  tokenExpirationTime: 10 #15 # Number of minutes
+  refreshTokenExpTime: 30 #60 # Minutes
+  tokenIssuer: sebooom.com
+  tokenSigningKey: xm8EV6Hy5RMFK4EEACIDAwQus

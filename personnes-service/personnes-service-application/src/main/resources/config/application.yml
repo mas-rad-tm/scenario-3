@@ -48,9 +48,3 @@ management:
     web:
       exposure:
         include: "*"
-########## Config jwt
-mas.security.jwt:
-  tokenExpirationTime: 10 #15 # Number of minutes
-  refreshTokenExpTime: 30 #60 # Minutes
-  tokenIssuer: sebooom.com
-  tokenSigningKey: xm8EV6Hy5RMFK4EEACIDAwQus
