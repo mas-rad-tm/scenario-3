@@ -2,10 +2,7 @@ package ch.globaz.tmmas.personnesservice.application.api.web.controller;
 
 import ch.globaz.tmmas.personnesservice.application.api.web.resources.AdresseResourceAttributes;
 import ch.globaz.tmmas.personnesservice.application.api.web.resources.PersonneMoraleResourceAttributes;
-import ch.globaz.tmmas.personnesservice.application.api.web.resources.common.ErrorResponseResource;
-import ch.globaz.tmmas.personnesservice.application.api.web.resources.common.ResourceObject;
-import ch.globaz.tmmas.personnesservice.application.api.web.resources.common.ResponseCollectionResource;
-import ch.globaz.tmmas.personnesservice.application.api.web.resources.common.ResponseResource;
+import ch.globaz.tmmas.personnesservice.application.api.web.resources.common.*;
 import ch.globaz.tmmas.personnesservice.application.event.InternalCommandPublisher;
 import ch.globaz.tmmas.personnesservice.application.event.InternalEventPublisher;
 import ch.globaz.tmmas.personnesservice.application.service.AdressesService;
@@ -134,8 +131,9 @@ public class PersonnesController {
 
 
         }else{
-            return new ResponseEntity(new ErrorResponseResource(HttpStatus.NOT_FOUND,"No persone found with id "
-                    + personneId),HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new ErrorResponseResource(HttpStatus.NOT_FOUND,
+                    ErrorMessage.NO_PERSON_FOUND_WITH_ID, String.valueOf(personneId)),
+                    HttpStatus.NOT_FOUND);
         }
     }
 
@@ -188,8 +186,8 @@ public class PersonnesController {
             return new ResponseEntity<>(adressesResource, HttpStatus.OK);
 
         }else{
-            return new ResponseEntity(new ErrorResponseResource(HttpStatus.NOT_FOUND,"No persone found with id "
-                    + personneId),HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new ErrorResponseResource(HttpStatus.NOT_FOUND,
+                    "No personne found with id: " + personneId),HttpStatus.NOT_FOUND);
         }
 
 

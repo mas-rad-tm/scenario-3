@@ -38,12 +38,12 @@ public class LoginProcessingFilter extends AbstractAuthenticationProcessingFilte
     private final ObjectMapper objectMapper;
 
     public LoginProcessingFilter(String defaultProcessUrl, AuthenticationSuccessHandler successHandler,
-                                 AuthenticationFailureHandler failureHandler, ObjectMapper mapper, ApplicationEventPublisher eventPublisher) {
+                                 AuthenticationFailureHandler failureHandler, ObjectMapper mapper) {
         super(defaultProcessUrl);
         this.successHandler = successHandler;
         this.failureHandler = failureHandler;
         this.objectMapper = mapper;
-        this.setApplicationEventPublisher(eventPublisher);
+
     }
 
     @Override
@@ -80,7 +80,7 @@ public class LoginProcessingFilter extends AbstractAuthenticationProcessingFilte
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                               AuthenticationException failed) throws IOException, ServletException {
-        LOGGER.info("**** Unsuccessfull Authentification ****");
+        LOGGER.info("--- Unsuccessfull Authentification ---");
         SecurityContextHolder.clearContext();
         failureHandler.onAuthenticationFailure(request, response, failed);
     }

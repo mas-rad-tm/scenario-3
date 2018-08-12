@@ -26,7 +26,7 @@ import org.springframework.util.Assert;
 @Component
 public class LoginAuthenticationProvider implements AuthenticationProvider {
 
-    private static final Logger logger = LoggerFactory.getLogger(LoginAuthenticationProvider.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginAuthenticationProvider.class);
 
     private final PasswordEncoder passwordEncoder;
     private final AuthentificationService authentificationService;
@@ -58,7 +58,7 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
         if (utilisateurLdap.getRoles() == null)
             throw new InsufficientAuthenticationException("User has no roles assigned");
 
-        logger.info("Utilisateur before roles from ad: {}",utilisateurLdap);
+        LOGGER.info("Utilisateur before roles from ad: {}",utilisateurLdap);
 
         Utilisateur utilisateur = utilisateurHibernateRepository.getByUsername(utilisateurLdap.getUid()).get();
 
@@ -72,7 +72,7 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
 
         ContexteUtilisateur contexteUtilisateur = ContexteUtilisateur.create(utilisateur.getUsername(), utilisateur.getAuthoritiesAsList());
 
-        logger.info("Contexte Utilisateur : {}",contexteUtilisateur);
+        LOGGER.info("Contexte Utilisateur : {}",contexteUtilisateur);
 
         return new UsernamePasswordAuthenticationToken(contexteUtilisateur, null, contexteUtilisateur.getAuthorities());
     }

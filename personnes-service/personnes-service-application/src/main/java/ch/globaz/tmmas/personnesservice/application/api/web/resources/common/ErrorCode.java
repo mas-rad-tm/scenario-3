@@ -1,4 +1,4 @@
-package ch.globaz.tmmas.personnesservice.application.common;
+package ch.globaz.tmmas.personnesservice.application.api.web.resources.common;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
@@ -7,8 +7,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum ErrorCode {
     GLOBAL(2),
-
-    AUTHENTICATION(10), JWT_TOKEN_EXPIRED(11);
+    AUTHENTICATION(10),
+    JWT_TOKEN_EXPIRED(11);
 
     private int errorCode;
 

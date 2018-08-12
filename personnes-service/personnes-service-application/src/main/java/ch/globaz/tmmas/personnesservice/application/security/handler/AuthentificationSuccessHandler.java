@@ -31,15 +31,14 @@ import java.util.Map;
  */
 @Component
 public class AuthentificationSuccessHandler implements AuthenticationSuccessHandler {
+
     private final ObjectMapper mapper;
     private final JwtTokenFactory tokenFactory;
-    //private final ApplicationEventPublisher eventPublisher;
 
     @Autowired
     public AuthentificationSuccessHandler(final ObjectMapper mapper, final JwtTokenFactory tokenFactory, final ApplicationEventPublisher eventPublisher) {
         this.mapper = mapper;
         this.tokenFactory = tokenFactory;
-        //this.eventPublisher = eventPublisher;
     }
 
     @Override
@@ -58,10 +57,7 @@ public class AuthentificationSuccessHandler implements AuthenticationSuccessHand
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         mapper.writeValue(response.getWriter(), tokenMap);
 
-        //clearAuthenticationAttributes(request);
-
-        //this.eventPublisher.publishEvent(new InteractiveAuthenticationSuccessEvent(authentication, this.getClass()));
-
+        clearAuthenticationAttributes(request);
 
     }
 

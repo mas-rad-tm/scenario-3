@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class ErrorMessage {
-	public ErrorMessage(String message, String code) {
+    public static final String INVALID_USERNAME_OR_PASSWORD = "Invalid username or password";
+
+    public ErrorMessage(String message, String code) {
 		this(message, code, "");
 	}
 

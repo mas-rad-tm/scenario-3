@@ -86,8 +86,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(loginAuthenticationProvider);
         auth.authenticationProvider(jwtAuthenticationProvider);
-       // auth.authenticationEventPublisher(authenticationEventPublisher);
-
     }
 
 
@@ -135,9 +133,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(buildJwtTokenAuthenticationProcessingFilter(permitAllEndpointList,API_ROOT_URL), UsernamePasswordAuthenticationFilter.class)
                 .headers().frameOptions().disable();
 
-
-
-
     }
 
     /**
@@ -156,7 +151,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     private Filter buildLoginProcessingFilter(String loginEntryPoint) {
-        LoginProcessingFilter filter = new LoginProcessingFilter(loginEntryPoint, successHandler, failureHandler, objectMapper,authenticationEventPublisher);
+        LoginProcessingFilter filter = new LoginProcessingFilter(loginEntryPoint, successHandler, failureHandler, objectMapper);
         filter.setAuthenticationManager(this.authenticationManager);
         return filter;
     }
