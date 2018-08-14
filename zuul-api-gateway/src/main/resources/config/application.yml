@@ -26,14 +26,16 @@ hystrix:
             timeoutInMilliseconds: 60000
 
 zuul:
-
   prefix: /api/v1
   routes:
     personnes:
       path: /personnes/**
       url: http://localhost:9010/personnes-service
-
-
+      sensitiveHeaders:
+proxy:
+  auth:
+    routes:
+      personnes: passthru
 ribbon:
   eureka:
    enabled: false

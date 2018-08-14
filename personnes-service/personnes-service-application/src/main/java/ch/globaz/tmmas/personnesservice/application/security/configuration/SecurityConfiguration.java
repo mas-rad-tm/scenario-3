@@ -1,13 +1,12 @@
-package ch.globaz.tmmas.zuulapigateway.application.security.configuration;
+package ch.globaz.tmmas.personnesservice.application.security.configuration;
 
-import ch.globaz.tmmas.zuulapigateway.application.security.filter.JwtAuthentificationProcessingFilter;
-import ch.globaz.tmmas.zuulapigateway.application.security.filter.LoginProcessingFilter;
-import ch.globaz.tmmas.zuulapigateway.application.security.handler.AuthentificationFailureHandler;
-import ch.globaz.tmmas.zuulapigateway.application.security.handler.AuthentificationSuccessHandler;
-import ch.globaz.tmmas.zuulapigateway.application.security.jwt.JwtSkipPathRequestMatcher;
-import ch.globaz.tmmas.zuulapigateway.application.security.jwt.TokenExtractor;
-import ch.globaz.tmmas.zuulapigateway.application.security.provider.JwtAuthenticationProvider;
-import ch.globaz.tmmas.zuulapigateway.application.security.provider.LoginAuthenticationProvider;
+import ch.globaz.tmmas.personnesservice.application.security.filter.JwtAuthentificationProcessingFilter;
+
+import ch.globaz.tmmas.personnesservice.application.security.handler.AuthentificationFailureHandler;
+import ch.globaz.tmmas.personnesservice.application.security.handler.AuthentificationSuccessHandler;
+import ch.globaz.tmmas.personnesservice.application.security.jwt.JwtSkipPathRequestMatcher;
+import ch.globaz.tmmas.personnesservice.application.security.jwt.TokenExtractor;
+import ch.globaz.tmmas.personnesservice.application.security.provider.JwtAuthenticationProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -44,7 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
     private static final String AUTHENTICATION_URL = "/login";
-    private static final String API_ROOT_URL = "/api/v1/**";
+    private static final String API_ROOT_URL = "/personnes/**";
     public static final String AUTHENTICATION_HEADER_NAME = "Authorization";
 
 
@@ -58,8 +57,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private AuthentificationFailureHandler failureHandler;
     @Autowired
     private AuthenticationManager authenticationManager;
-    @Autowired
-    private LoginAuthenticationProvider loginAuthenticationProvider;
+
     @Autowired
     private JwtAuthenticationProvider jwtAuthenticationProvider;
     @Autowired
@@ -83,7 +81,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
-        auth.authenticationProvider(loginAuthenticationProvider);
         auth.authenticationProvider(jwtAuthenticationProvider);
     }
 
@@ -128,7 +125,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .and()
                 //.addFilterBefore(new CustomCorsFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(buildLoginProcessingFilter(AUTHENTICATION_URL), UsernamePasswordAuthenticationFilter.class)
+                //.addFilterBefore(buildLoginProcessingFilter(AUTHENTICATION_URL), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(buildJwtTokenAuthenticationProcessingFilter(permitAllEndpointList,API_ROOT_URL), UsernamePasswordAuthenticationFilter.class)
                 .headers().frameOptions().disable();
 
@@ -149,11 +146,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return filter;
     }
 
-    private Filter buildLoginProcessingFilter(String loginEntryPoint) {
-        LoginProcessingFilter filter = new LoginProcessingFilter(loginEntryPoint, successHandler, failureHandler, objectMapper);
-        filter.setAuthenticationManager(this.authenticationManager);
-        return filter;
-    }
+
 
     @Bean
     @Override

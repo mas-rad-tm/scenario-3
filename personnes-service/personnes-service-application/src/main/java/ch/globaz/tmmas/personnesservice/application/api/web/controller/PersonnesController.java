@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriTemplate;
 
@@ -59,7 +60,7 @@ public class PersonnesController {
     InternalCommandPublisher commandPublisher;
 
 
-    //@PreAuthorize("hasAuthority('P_READ_PERSONNES')")
+    @PreAuthorize("hasAuthority('P_READ_PERSONNES')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity listerPersonne()  {
 
@@ -83,7 +84,7 @@ public class PersonnesController {
                 .CREATED);
     }
 
-    //@PreAuthorize("hasAuthority('P_CREATE_PERSONNES')")
+    @PreAuthorize("hasAuthority('P_CREATE_PERSONNES')")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity creerPersonne(@Valid @RequestBody CreerPersonneMoraleCommand command) throws PersonnesIncoherenceException, AdresseIncoherenceException {
 
@@ -105,7 +106,7 @@ public class PersonnesController {
                 HttpStatus.CREATED);
     }
 
-    //@PreAuthorize("hasAuthority('P_CREATE_ADRESSES')")
+    @PreAuthorize("hasAuthority('P_CREATE_ADRESSES')")
     @RequestMapping(value="/{personneId}/adresses", method = RequestMethod.POST)
     public ResponseEntity creerAdresseForPersonne(@Valid @RequestBody CreerAdresseCommand command, @PathVariable Long
             personneId) throws AdresseIncoherenceException {
@@ -135,7 +136,7 @@ public class PersonnesController {
         }
     }
 
-    //@PreAuthorize("hasAuthority('P_READ_PERSONNES')")
+    @PreAuthorize("hasAuthority('P_READ_PERSONNES')")
     @RequestMapping(value="/{personneId}", method = RequestMethod.GET)
     public ResponseEntity getPersonneById(@PathVariable Long personneId) throws AdresseIncoherenceException {
 
