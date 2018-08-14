@@ -51,3 +51,5 @@ mas.security.jwt:
   refreshTokenExpTime: 30 #60 # Minutes
   tokenIssuer: sebooom.com
   tokenSigningKey: xm8EV6Hy5RMFK4EEACIDAwQus
+
+auth-service-url: http://localhost:8020/authentification-service/auth

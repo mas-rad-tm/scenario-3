@@ -3,7 +3,7 @@ package ch.globaz.tmmas.zuulapigateway.application.security.provider;
 import ch.globaz.tmmas.zuulapigateway.application.security.model.ContexteUtilisateur;
 import ch.globaz.tmmas.zuulapigateway.application.security.service.AuthentificationService;
 import ch.globaz.tmmas.zuulapigateway.infrastructure.authentifcation.LoginDto;
-import ch.globaz.tmmas.zuulapigateway.infrastructure.authentifcation.UtilisateurLdapDto;
+import ch.globaz.tmmas.zuulapigateway.infrastructure.authentifcation.UtilisateurDto;
 import ch.globaz.tmmas.zuulapigateway.infrastructure.repository.UtilisateurHibernateRepository;
 import ch.globaz.tmmas.zuulapigateway.infrastructure.security.Utilisateur;
 import org.slf4j.Logger;
@@ -50,7 +50,7 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
         String password = (String) authentication.getCredentials();
 
         //Authentification via la provider
-        UtilisateurLdapDto utilisateurLdap = authentificationService.authentifie(new LoginDto(username,password)).orElseThrow(
+        UtilisateurDto utilisateurLdap = authentificationService.authentifie(new LoginDto(username,password)).orElseThrow(
                 () -> new UsernameNotFoundException("Problème lors de l'authentification de l'utilisateur "
                         + username));
 

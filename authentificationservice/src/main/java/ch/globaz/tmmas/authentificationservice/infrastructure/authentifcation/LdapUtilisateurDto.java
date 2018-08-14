@@ -1,4 +1,4 @@
-package ch.globaz.tmmas.zuulapigateway.infrastructure.authentifcation;
+package ch.globaz.tmmas.authentificationservice.infrastructure.authentifcation;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,19 +9,19 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class UtilisateurLdapDto {
+public class LdapUtilisateurDto {
 
     private String uid;
     private String nom;
     private String prenom;
     private List<String> roles;
 
-    public UtilisateurLdapDto(String uid, String nom, String prenom, List<String> roles) {
+    public LdapUtilisateurDto(String uid, String nom, String prenom, List<String> roles) {
         this.uid = uid;
         this.nom = nom;
         this.prenom = prenom;
         this.roles = roles;
     }
 
-    UtilisateurLdapDto(){};
+    LdapUtilisateurDto(){};
 }
