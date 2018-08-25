@@ -1,6 +1,6 @@
 package ch.globaz.tmmas.personnesservice.infrastructure.authentifcation;
 
-import ch.globaz.tmmas.personnesservice.infrastructure.security.Utilisateur;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.remoting.RemoteAccessException;
 import org.springframework.stereotype.Component;
