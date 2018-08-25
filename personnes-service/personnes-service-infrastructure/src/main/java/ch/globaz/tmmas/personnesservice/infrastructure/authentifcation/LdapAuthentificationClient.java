@@ -1,6 +1,8 @@
 package ch.globaz.tmmas.personnesservice.infrastructure.authentifcation;
 
+import ch.globaz.tmmas.personnesservice.infrastructure.security.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.remoting.RemoteAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,6 +21,15 @@ public class LdapAuthentificationClient {
    // }
 
     public UtilisateurLdapDto authentifie(LoginDto dto){
-        return restTemplate.postForObject(ldapUri,dto,UtilisateurLdapDto.class);
+
+        UtilisateurLdapDto utilisateur;
+
+        try{
+            utilisateur = restTemplate.postForObject(ldapUri,dto,UtilisateurLdapDto.class);
+        }catch (RemoteAccessException e){
+            throw e;
+        }
+
+        return utilisateur;
     }
 }
