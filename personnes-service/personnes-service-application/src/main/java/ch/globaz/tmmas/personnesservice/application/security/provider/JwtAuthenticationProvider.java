@@ -1,5 +1,6 @@
 package ch.globaz.tmmas.personnesservice.application.security.provider;
 
+
 import ch.globaz.tmmas.personnesservice.application.security.configuration.JwtSettings;
 import ch.globaz.tmmas.personnesservice.application.security.jwt.JwtAuthenticationToken;
 import ch.globaz.tmmas.personnesservice.application.security.jwt.RawAccessJwtToken;
@@ -16,7 +17,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 

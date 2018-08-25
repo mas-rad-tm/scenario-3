@@ -1,6 +1,7 @@
 package ch.globaz.tmmas.personnesservice.application.security.jwt;
 
 
+
 import ch.globaz.tmmas.personnesservice.infrastructure.security.Scopes;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;

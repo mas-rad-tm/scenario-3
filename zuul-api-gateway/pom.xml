@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ch.globaz.tmmas</groupId>
+    <artifactId>zuul-api-gateway</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <spring-boot.version>1.5.10.RELEASE</spring-boot.version>
+        <spring.cloud.version>Camden.SR7</spring.cloud.version>
+        <java.version>1.8</java.version>
+        <logback.version>1.2.3</logback.version>
+        <logback.encoder.version>4.11</logback.encoder.version>
+        <lombok.version>1.16.20</lombok.version>
+        <faker.version>0.14</faker.version>
+        <lombok.version>1.16.20</lombok.version>
+        <jjwt.version>0.9.0</jjwt.version>
+        <hibernate.version>5.2.12.Final</hibernate.version>
+        <h2.driver.version>1.4.196</h2.driver.version>
+
+
+    </properties>
+
+    <parent>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-parent</artifactId>
+        <version>Camden.SR7</version>
+    </parent>
+
+    <dependencyManagement>
+        <dependencies>
+           <!-- <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>-->
+
+            <!--
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+-->
+            <!-- ****** Logging ****** -->
+            <!-- logback classic
+            repo: https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+            doc: https://logback.qos.ch/documentation.html -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+
+            <!-- logback core
+            repo: https://mvnrepository.com/artifact/ch.qos.logback/logback-core
+            doc: https://logback.qos.ch/documentation.html -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback.version}</version>
+                <!-- test is mandatory here, will be overriden by final artifacts -->
+                <scope>test</scope>
+            </dependency>
+
+            <!-- logback logstash encoder, formattage json des logs
+            repo: https://mvnrepository.com/artifact/net.logstash.logback/logstash-logback-encoder
+            doc: https://github.com/logstash/logstash-logback-encoder -->
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logback.encoder.version}</version>
+            </dependency>
+
+
+            <!-- lombok
+            repo:https://mvnrepository.com/artifact/org.projectlombok/lombok
+            doc: https://projectlombok.org/ -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- datafaker -->
+            <dependency>
+                <groupId>com.github.javafaker</groupId>
+                <artifactId>javafaker</artifactId>
+                <version>${faker.version}</version>
+            </dependency>
+
+        </dependencies>
+
+
+
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-zuul -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zuul</artifactId>
+        </dependency>
+
+        <!-- spring web hateoas -->
+        <!--
+        repo: https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-hateoas
+        doc: doc: https://docs.spring.io/spring-boot/docs/1.5.9.RELEASE/reference/htmlsingle -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+        <!-- hibernate core module
+           repo: https://mvnrepository.com/artifact/org.hibernate/hibernate-core
+           doc: http://hibernate.org/orm/documentation/5.2/ -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.driver.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jdbc</artifactId>
+        </dependency>
+        <!--
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-eureka</artifactId>
+        </dependency>
+-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+        </dependency>
+
+        <!-- lombok
+           repo:https://mvnrepository.com/artifact/org.projectlombok/lombok
+           doc: https://projectlombok.org/ -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- ********************************* -->
+        <!-- ********  Securité   ************ -->
+        <!-- ********************************* -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>5.0.6.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>5.0.6.RELEASE</version>
+        </dependency>
+
+    </dependencies>
+
+
+</project>

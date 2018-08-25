@@ -1,6 +1,5 @@
 package ch.globaz.tmmas.personnesservice.application.api.web.resources.common;
 
-import ch.globaz.tmmas.personnesservice.application.common.ErrorCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -23,26 +22,31 @@ public class ErrorResponseResource {
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private List<String> erreurs;
 
-	public ErrorResponseResource(HttpStatus status, String message, List<String> erreurs) {
+	public ErrorResponseResource(HttpStatus status, ErrorMessage message, List<String> erreurs) {
 		this.erreurs = erreurs;
-		this.message = message;
+		this.message = message.libelle;
 		this.status = status;
 		this.timestamp = new Date();
 	}
 
-	public ErrorResponseResource(HttpStatus status, String message, String erreur, ErrorCode errorCode) {
+	public ErrorResponseResource(HttpStatus status, ErrorMessage message, String erreur, ErrorCode errorCode) {
 		this(status,message, Arrays.asList(erreur));
 		this.errorCode = errorCode;
 	}
 
-	public ErrorResponseResource(HttpStatus status, String message, String erreur) {
+	public ErrorResponseResource(HttpStatus status, ErrorMessage message, String erreur) {
 		this(status,message, Arrays.asList(erreur));
 	}
 
-	public ErrorResponseResource(HttpStatus status, String message) {
-		this.message = message;
+	public ErrorResponseResource(HttpStatus status, ErrorMessage message) {
+		this.message = message.libelle;
 		this.status = status;
 		this.timestamp = new Date();
 	}
 
+	public ErrorResponseResource(HttpStatus status, String s) {
+		this.message = s;
+		this.status = status;
+		this.timestamp = new Date();
+	}
 }

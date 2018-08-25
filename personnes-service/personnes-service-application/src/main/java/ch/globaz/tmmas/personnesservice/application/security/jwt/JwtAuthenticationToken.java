@@ -3,9 +3,6 @@ package ch.globaz.tmmas.personnesservice.application.security.jwt;
 
 import ch.globaz.tmmas.personnesservice.application.security.model.ContexteUtilisateur;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-
-import java.util.Collection;
 
 /**
  * Une implémentation de  {@link org.springframework.security.core.Authentication}

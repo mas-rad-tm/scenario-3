@@ -5,6 +5,7 @@ import ch.globaz.tmmas.personnesservice.application.security.jwt.JwtTokenFactory
 import ch.globaz.tmmas.personnesservice.application.security.model.ContexteUtilisateur;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -29,11 +30,12 @@ import java.util.Map;
  */
 @Component
 public class AuthentificationSuccessHandler implements AuthenticationSuccessHandler {
+
     private final ObjectMapper mapper;
     private final JwtTokenFactory tokenFactory;
 
     @Autowired
-    public AuthentificationSuccessHandler(final ObjectMapper mapper, final JwtTokenFactory tokenFactory) {
+    public AuthentificationSuccessHandler(final ObjectMapper mapper, final JwtTokenFactory tokenFactory, final ApplicationEventPublisher eventPublisher) {
         this.mapper = mapper;
         this.tokenFactory = tokenFactory;
     }
@@ -55,6 +57,7 @@ public class AuthentificationSuccessHandler implements AuthenticationSuccessHand
         mapper.writeValue(response.getWriter(), tokenMap);
 
         clearAuthenticationAttributes(request);
+
     }
 
     /**

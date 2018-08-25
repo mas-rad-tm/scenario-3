@@ -7,7 +7,6 @@ import lombok.ToString;
 import java.util.List;
 
 @Getter
-@ToString
 public class UtilisateursLdap {
 
 	private String uid;
@@ -23,4 +22,14 @@ public class UtilisateursLdap {
 	}
 
 	UtilisateursLdap(){};
+
+	@Override
+	public String toString() {
+		return "UtilisateursLdap{" +
+				"uid='" + uid + '\'' +
+				", nom='" + nom + '\'' +
+				", prenom='" + prenom + '\'' +
+				", roles=" + roles +
+				'}';
+	}
 }

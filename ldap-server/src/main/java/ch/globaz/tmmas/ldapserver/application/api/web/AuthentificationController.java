@@ -27,6 +27,7 @@ public class AuthentificationController {
 
 		LOGGER.info("AuthentificationController#authenticateAndGetUser, authRequest : {}", authrequest);
 
+
 		UtilisateursLdap utilisateursLdap = utilisateurService.authenticate(authrequest.getNomUtilisateur(),authrequest
 				.getMotDePasse());
 
