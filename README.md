@@ -12,38 +12,6 @@ Ce scénario se base sur deux services applicatifs:
 * JDK version 1.8
 * base de données IBM DB2 (*par défaut, utilisation d'une base de données H2 embarquée*)
 
-### Exécution de l'application
-#### Service rentes
-* Récupération du repository
-* Se rendre dans le dossier `/rentes-services`
-* lancer la commande `mvn clean install`
-* Se rendre dans le dossier `/rentes-service-application`
-* lancer l'application avec la commande `mvn spring-boot:run`
-
-L'application est maintenant disponible via l'url suivante: `http://localhost:9020/rentes-service`. 
-
-##### Paramétrages
-###### Parmétrage du port
-Le port par déaut de l'application est le **9020**. Il est possible de paramétrer un autre port d'écoute pour l'application. Il suffit pour cela d'ajouter la varaiable **PORT** à la commande de démarrage de l'application:
-> **mvn -DPORT=1234 spring-boot:run** (*remplacez 1234 par le numéro de port désiré*)
-
-###### Utilisation d'une base de données physique
-Par défaut c'est une base de donnée `H2` embarquée qui est utilisée. Il est possible d'utiliser une base de données physique. 
-Un profil spring `db2` est paramétré pour l'utilisation d'une base de données IBM DB2. 
-
-* Ouvrir le fichier `/rentes-service/rentes-service-application/src/main/resources/config/application-db2.yml`
-* Adapter les paramètres en fonction de la base de données voulues
-* Ouvrir le fichier `/rentes-service/rentes-service-application/src/main/resources/config/application.yml`
-* Modifier `h2`  par `db2` pour la clé `spring.profiles.active`
-* Démarrer l'application 
-
-###### Paramétrage des logs applicatifs
-Les logs applicatifs sont générés dans un répertoire déinis. Suivant le système d'exploitation, il y aura lieu de configurer le chemin d'écriture des fichiers de logs:
-
-* Ouvrir le fichier `/rentes-service/rentes-service-application/src/main/resources/logback-spring.xml`
-* Modifier la valeur de la propriété `logging.path`
-* Redémarrer l'application
-
 #### Service personnes
 * Récupération du repository
 * Se rendre dans le dossier `/personnes-services`
