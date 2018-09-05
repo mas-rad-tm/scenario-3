@@ -2,11 +2,10 @@
 # Scénario 3
 Implémentations d’un système d’authentification/identification
 
-Ce scénario se base sur deux services applicatifs: 
-* **rentes-service**: le service de gestion des rentes
+Ce scénario se base sur un services applicatifs: 
 * **personnes-services**: le service de gestion des personnes
 
-## Variante n° 1
+## Variante n° 3
 ### Prérequis
 * Maven version 3.5.0
 * JDK version 1.8
@@ -59,6 +58,21 @@ Le port par déaut de l'application est le **8010**. Il est possible de paramét
 l'application. Il suffit pour cela d'ajouter la varaiable **PORT** à la commande de démarrage de l'application:
 > **mvn -DPORT=1234 spring-boot:run** (*remplacez 1234 par le numéro de port désiré*)
 
+#### Service d'authentification
+* Récupération du repository
+* Se rendre dans le dossier `/authentificationservice`
+* lancer la commande `mvn clean install`
+* lancer l'application avec la commande `mvn spring-boot:run`
+
+L'application est maintenant disponible via l'url suivante: `http://localhost:8020//authentification-service`. 
+
+##### Paramétrages
+###### Parmétrage du port
+Le port par déaut de l'application est le **8010**. Il est possible de paramétrer un autre port d'écoute pour 
+l'application. Il suffit pour cela d'ajouter la varaiable **PORT** à la commande de démarrage de l'application:
+> **mvn -DPORT=1234 spring-boot:run** (*remplacez 1234 par le numéro de port désiré*)
+
+
 ### Fonctionnalités et tests
 L'application est une application Spring en mode `embeded`. Au lieu de déployer une archive web (.war) dans un container applicatif JEE, c'est l'application qui va embrquer un container applicatif, dans notre cas il s'agit de Apache Tomcat.
 
@@ -67,9 +81,3 @@ L'application embarque une documentation des API disponible à cette url:
 > {url application}/swagger-ui.html
 
 Cette documentation est basé sur l'outil `Swagger`, fournissant une documentation, mais également une interface permettant de tester les différentes API.
-
-Les API Rest suivantes ont été ajoutés pour ce scénario (API spécifique pour le scénario, pour les autres consulter 
-swagger):  
-
-> **/dossiers/withPersonne**, méthode http POST, permet la création d'un dossier et d'une personne
-
