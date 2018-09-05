@@ -83,6 +83,14 @@ Les logs applicatifs sont générés dans un répertoire déinis. Suivant le sys
 * lancer la commande `mvn clean install`
 * lancer l'application avec la commande `mvn spring-boot:run`
 
+L'application est maintenant disponible via l'url suivante: `http://localhost:8010/ldap-server`. 
+
+##### Paramétrages
+###### Parmétrage du port
+Le port par déaut de l'application est le **8010**. Il est possible de paramétrer un autre port d'écoute pour 
+l'application. Il suffit pour cela d'ajouter la varaiable **PORT** à la commande de démarrage de l'application:
+> **mvn -DPORT=1234 spring-boot:run** (*remplacez 1234 par le numéro de port désiré*)
+
 ### Fonctionnalités et tests
 L'application est une application Spring en mode `embeded`. Au lieu de déployer une archive web (.war) dans un container applicatif JEE, c'est l'application qui va embrquer un container applicatif, dans notre cas il s'agit de Apache Tomcat.
 
